@@ -1,42 +1,55 @@
 <template>
-  <v-container class="pa-0" elevation="3">
-    <v-text-field id="result" type="text" v-model="value"></v-text-field>
-    <v-row>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('7')">7</v-btn></v-col>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('8')">8</v-btn></v-col>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('9')">9</v-btn></v-col>
-      <v-col cols="40"><v-btn color="primary" elevation="5" v-on:click="reset()">C</v-btn></v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('4')">4</v-btn></v-col>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('5')">5</v-btn></v-col>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('6')">6</v-btn></v-col>
-      <v-col cols="40"
-        ><v-btn color="primary" elevation="5" v-on:click="remember('add')"><v-icon>mdi-plus</v-icon></v-btn></v-col
-      >
-    </v-row>
-    <v-row>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('1')">1</v-btn></v-col>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('2')">2</v-btn></v-col>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('3')">3</v-btn></v-col>
-      <v-col cols="40"
-        ><v-btn color="primary" elevation="5" v-on:click="remember('subtract')"><v-icon>mdi-minus</v-icon></v-btn></v-col
-      >
-    </v-row>
-    <v-row>
-      <v-col cols="40"><v-btn color="secondary" elevation="5" v-on:click="write('0')">0</v-btn></v-col>
-      <v-col cols="40"><v-btn color="primary" elevation="5" v-on:click="write('.')">.</v-btn></v-col>
-      <v-col cols="40"
-        ><v-btn color="primary" elevation="5" v-on:click="remember('multiply')"><v-icon>mdi-multiplication</v-icon></v-btn></v-col
-      >
-      <v-col cols="40"
-        ><v-btn color="primary" elevation="5" v-on:click="remember('divide')"><v-icon>mdi-division</v-icon></v-btn></v-col
-      >
-      <v-col cols="40"
-        ><v-btn color="primary" elevation="5" v-on:click="equals()"><v-icon>mdi-equal</v-icon></v-btn></v-col
-      >
-    </v-row>
-  </v-container>
+  <v-card color="amber lighten-5" max-width="450" class="mx-auto my-12 pa-6"
+    ><v-container class="pa-0" elevation="3">
+      <v-text-field class="text-lg-h6" id="result" type="text" v-model="value"></v-text-field>
+      <v-row>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('7')">7</v-btn></v-col>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('8')">8</v-btn></v-col>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('9')">9</v-btn></v-col>
+        <v-col cols="40"><v-btn color="red accent-2" elevation="5" v-on:click="reset()">C</v-btn></v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('4')">4</v-btn></v-col>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('5')">5</v-btn></v-col>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('6')">6</v-btn></v-col>
+        <v-col cols="40"
+          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('add')"><v-icon>mdi-plus</v-icon></v-btn></v-col
+        >
+      </v-row>
+      <v-row>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('1')">1</v-btn></v-col>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('2')">2</v-btn></v-col>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('3')">3</v-btn></v-col>
+        <v-col cols="40"
+          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('subtract')"><v-icon>mdi-minus</v-icon></v-btn></v-col
+        >
+      </v-row>
+      <v-row>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('0')">0</v-btn></v-col>
+        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('.')">.</v-btn></v-col>
+        <v-col cols="40"
+          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('multiply')"><v-icon>mdi-multiplication</v-icon></v-btn></v-col
+        >
+        <v-col cols="40"
+          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('divide')"><v-icon>mdi-division</v-icon></v-btn></v-col
+        >
+      </v-row>
+      <v-row>
+        <v-col cols="40"
+          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('sqrt')"><v-icon>mdi-square-root</v-icon></v-btn></v-col
+        >
+        <v-col cols="40"
+          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('power')"><v-icon>mdi-exponent</v-icon></v-btn></v-col
+        >
+        <v-col cols="40"
+          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('inverse')"><v-icon>1/x</v-icon></v-btn></v-col
+        >
+        <v-col cols="40"
+          ><v-btn color="green accent-2" elevation="5" v-on:click="equals()"><v-icon>mdi-equal</v-icon></v-btn></v-col
+        >
+      </v-row>
+    </v-container></v-card
+  >
 </template>
 
 <script>
@@ -57,9 +70,17 @@ export default {
       this.value = '0';
     },
     remember: function(act) {
-      this.value1 = Number(this.value);
-      this.value = '0';
-      this.action = act;
+      if (act === 'sqrt') {
+        this.value = Math.sqrt(this.value);
+      } else {
+        if (act === 'inverse') {
+          this.value = 1 / this.value;
+        } else {
+          this.value1 = Number(this.value);
+          this.value = '0';
+          this.action = act;
+        }
+      }
     },
     equals: function() {
       this.value2 = Number(this.value);
@@ -75,6 +96,9 @@ export default {
           break;
         case 'divide':
           this.value = this.value1 / this.value2;
+          break;
+        case 'power':
+          this.value = this.value1 ** this.value2;
           break;
       }
     }

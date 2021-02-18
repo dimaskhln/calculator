@@ -10,7 +10,7 @@
       <v-btn>CALCULATOR</v-btn>
     </v-app-bar>
 
-    <v-main> <router-view></router-view> </v-main><Footer />
+    <v-main> <router-view name="mainView"></router-view> </v-main><Footer />
   </v-app>
 </template>
 
