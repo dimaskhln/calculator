@@ -1,7 +1,7 @@
 <template>
   <v-card color="amber lighten-5" max-width="450" class="mx-auto my-12 pa-6"
     ><v-container class="pa-0" elevation="3">
-      <v-text-field class="text-lg-h6" id="result" type="text" v-model="value"></v-text-field>
+      <v-text-field outlined class="text-lg-h6" id="result" type="text" v-model="value"></v-text-field>
       <v-row>
         <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('7')">7</v-btn></v-col>
         <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('8')">8</v-btn></v-col>
@@ -59,7 +59,8 @@ export default {
       value: '0',
       value1: 0,
       value2: 0,
-      action: ''
+      action: '',
+      done: false
     };
   },
   methods: {
@@ -68,8 +69,13 @@ export default {
     },
     reset: function() {
       this.value = '0';
+      this.value1 = 0;
+      this.value2 = 0;
+      this.action = '';
+      this.done = false;
     },
     remember: function(act) {
+      this.done = false;
       if (act === 'sqrt') {
         this.value = Math.sqrt(this.value);
       } else {
@@ -83,22 +89,30 @@ export default {
       }
     },
     equals: function() {
-      this.value2 = Number(this.value);
+      if (!this.done) {
+        this.value2 = Number(this.value);
+      }
+
       switch (this.action) {
         case 'add':
-          this.value = this.value1 + this.value2;
+          this.value1 = this.value = this.value1 + this.value2;
+          this.done = true;
           break;
         case 'subtract':
-          this.value = this.value1 - this.value2;
+          this.value1 = this.value = this.value1 - this.value2;
+          this.done = true;
           break;
         case 'multiply':
-          this.value = this.value1 * this.value2;
+          this.value1 = this.value = this.value1 * this.value2;
+          this.done = true;
           break;
         case 'divide':
-          this.value = this.value1 / this.value2;
+          this.value1 = this.value = this.value1 / this.value2;
+          this.done = true;
           break;
         case 'power':
-          this.value = this.value1 ** this.value2;
+          this.value1 = this.value = this.value1 ** this.value2;
+          this.done = true;
           break;
       }
     }

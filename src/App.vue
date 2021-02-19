@@ -5,6 +5,7 @@
       <router-link to="/calculator"><v-btn>CALCULATOR</v-btn></router-link>
       <router-link to="/base-to-base"><v-btn>BASE TO BASE</v-btn></router-link>
       <router-link to="/polinom"><v-btn>POLINOM</v-btn></router-link>
+      <router-link to="/distribution"><v-btn>DISTRIBUTION</v-btn></router-link>
 
       <v-spacer></v-spacer>
       <v-btn>CALCULATOR</v-btn>

@@ -2,17 +2,20 @@
   <v-container fluid>
     <v-row>
       <v-col>
-        <v-text-field v-model="value" label="Enter number" outlined></v-text-field>
+        <v-text-field v-model="number" label="Enter number" outlined></v-text-field>
       </v-col>
-      <p>{{ value }}</p>
     </v-row>
     <v-row align="center">
       <v-col class="d-flex" cols="12" sm="6">
-        <v-select id="from-select" :items="bases" label="From" outlined></v-select>
+        <v-select v-model="fromBase" :items="bases" label="From" outlined></v-select>
       </v-col>
       <v-col class="d-flex" cols="12" sm="6">
-        <v-select id="to-select" :items="bases" label="To" outlined></v-select>
+        <v-select v-model="toBase" :items="bases" label="To" outlined></v-select>
       </v-col>
+    </v-row>
+    <v-row>{{ result }} </v-row>
+    <v-row>
+      <v-btn v-on:click="convert()">Convert</v-btn>
     </v-row>
   </v-container>
 </template>
@@ -21,11 +24,32 @@
 export default {
   data() {
     return {
-      bases: ['Binary', 'Octal', 'Decimal', 'Hexadecimal']
+      bases: [
+        { value: 2, text: 'Binary' },
+        { value: 8, text: 'Octal' },
+        { value: 10, text: 'Decimal' },
+        { value: 16, text: 'Hexadecimal' }
+      ],
+      fromBase: '',
+      toBase: '',
+      number: 0,
+      result: 0
     };
   },
   methods: {
-    convert: () => {}
+    convert: function() {
+      try {
+        if (this.fromBase === void 0) {
+          this.fromBase = 10;
+        }
+        if (this.toBase === void 0) {
+          this.toBase = 10;
+        }
+        this.result = parseInt(this.number.toString(), this.fromBase).toString(this.toBase);
+      } catch (e) {
+        console.error('Error in convertNumber: ' + e);
+      }
+    }
   }
 };
 </script>
