@@ -41,9 +41,7 @@
         <v-col cols="40"
           ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('power')"><v-icon>mdi-exponent</v-icon></v-btn></v-col
         >
-        <v-col cols="40"
-          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('inverse')"><v-icon>1/x</v-icon></v-btn></v-col
-        >
+        <v-col cols="40"><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('inverse')">1/x</v-btn></v-col>
         <v-col cols="40"
           ><v-btn color="green accent-2" elevation="5" v-on:click="equals()"><v-icon>mdi-equal</v-icon></v-btn></v-col
         >
