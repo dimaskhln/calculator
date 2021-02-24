@@ -1,6 +1,6 @@
 <template>
   <v-container fluid
-    ><v-card color="blue-grey lighten-5" max-width="450" class="mx-auto my-12 pa-6">
+    ><v-card id="btb" max-width="450" class="mx-auto my-12 pa-6">
       <v-row>
         <v-col>
           <v-text-field v-model="number" label="Число" outlined></v-text-field>
@@ -62,6 +62,13 @@ export default {
         console.error('Error in convertNumber: ' + e);
       }
     }
+  },
+  mounted() {
+    document.getElementById('btb').classList.remove('theme--light');
+    document.getElementById('btb').classList.add('matte-bg');
+    document.querySelector('.v-application--wrap').classList.remove('weather-bg');
+    document.querySelector('.v-application--wrap').classList.add('basetobase-bg');
+    document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
   }
 };
 </script>
