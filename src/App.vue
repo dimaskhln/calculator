@@ -10,17 +10,40 @@
       <v-btn>CALCULATOR</v-btn>
     </v-app-bar> -->
     <TabNavigator />
-    <v-main> <router-view name="mainView"></router-view> </v-main><Footer />
+    <v-main> <router-view name="mainView"></router-view> </v-main>
+    <v-bottom-navigation color="teal" grow>
+      <v-btn>
+        <span>Recents</span>
+
+        <v-icon>mdi-history</v-icon>
+      </v-btn>
+
+      <v-btn>
+        <span>Favorites</span>
+
+        <v-icon>mdi-heart</v-icon>
+      </v-btn>
+
+      <v-btn>
+        <span>Nearby</span>
+
+        <v-icon>mdi-map-marker</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
   </v-app>
 </template>
 
+<style lang="scss">
+@import './assets/style.scss';
+</style>
+
 <script>
-import Footer from './components/Footer';
+//import Footer from './components/Footer';
 import TabNavigator from './components/TabNavigator';
 export default {
   name: 'App',
   components: {
-    Footer,
+    //    Footer,
     TabNavigator
   },
   data: () => ({

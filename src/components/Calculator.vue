@@ -1,47 +1,49 @@
 <template>
-  <v-card color="amber lighten-5" max-width="450" class="mx-auto my-12 pa-6"
+  <v-card id="calc" max-width="450" class="mx-auto my-12 pa-6"
     ><v-container class="pa-0" elevation="3">
-      <v-text-field outlined class="text-lg-h6" id="result" type="text" v-model="value"></v-text-field>
+      <v-text-field outlined color="teal lighten-4" class="teal-input text-lg-h6" id="result" type="text" v-model="value"></v-text-field>
       <v-row>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('7')">7</v-btn></v-col>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('8')">8</v-btn></v-col>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('9')">9</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('7')">7</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('8')">8</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('9')">9</v-btn></v-col>
         <v-col cols="40"><v-btn color="red accent-2" elevation="5" v-on:click="reset()">C</v-btn></v-col>
       </v-row>
       <v-row>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('4')">4</v-btn></v-col>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('5')">5</v-btn></v-col>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('6')">6</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('4')">4</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('5')">5</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('6')">6</v-btn></v-col>
         <v-col cols="40"
-          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('add')"><v-icon>mdi-plus</v-icon></v-btn></v-col
+          ><v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('add')"><v-icon>mdi-plus</v-icon></v-btn></v-col
         >
       </v-row>
       <v-row>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('1')">1</v-btn></v-col>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('2')">2</v-btn></v-col>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('3')">3</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('1')">1</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('2')">2</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('3')">3</v-btn></v-col>
         <v-col cols="40"
-          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('subtract')"><v-icon>mdi-minus</v-icon></v-btn></v-col
+          ><v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('subtract')"><v-icon>mdi-minus</v-icon></v-btn></v-col
         >
       </v-row>
       <v-row>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('0')">0</v-btn></v-col>
-        <v-col cols="40"><v-btn color="blue lighten-5" elevation="5" v-on:click="write('.')">.</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('0')">0</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('.')">.</v-btn></v-col>
         <v-col cols="40"
-          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('multiply')"><v-icon>mdi-multiplication</v-icon></v-btn></v-col
+          ><v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('multiply')"
+            ><v-icon>mdi-multiplication</v-icon></v-btn
+          ></v-col
         >
         <v-col cols="40"
-          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('divide')"><v-icon>mdi-division</v-icon></v-btn></v-col
+          ><v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('divide')"><v-icon>mdi-division</v-icon></v-btn></v-col
         >
       </v-row>
       <v-row>
         <v-col cols="40"
-          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('sqrt')"><v-icon>mdi-square-root</v-icon></v-btn></v-col
+          ><v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('sqrt')"><v-icon>mdi-square-root</v-icon></v-btn></v-col
         >
         <v-col cols="40"
-          ><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('power')"><v-icon>mdi-exponent</v-icon></v-btn></v-col
+          ><v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('power')"><v-icon>mdi-exponent</v-icon></v-btn></v-col
         >
-        <v-col cols="40"><v-btn color="blue lighten-1" elevation="5" v-on:click="remember('inverse')">1/x</v-btn></v-col>
+        <v-col cols="40"><v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('inverse')">1/x</v-btn></v-col>
         <v-col cols="40"
           ><v-btn color="green accent-2" elevation="5" v-on:click="equals()"><v-icon>mdi-equal</v-icon></v-btn></v-col
         >
@@ -114,6 +116,13 @@ export default {
           break;
       }
     }
+  },
+  mounted() {
+    document.getElementById('calc').classList.remove('theme--light');
+    document.getElementById('calc').classList.add('matte-bg');
+    document.querySelector('.v-application--wrap').classList.remove('weather-bg');
+    document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
+    document.querySelector('.v-application--wrap').classList.add('calculator-bg');
   }
 };
 </script>
