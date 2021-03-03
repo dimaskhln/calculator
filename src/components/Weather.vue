@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-row>
-      <v-card v-for="city in cities" :key="city.name" class="ma-3" min-width="374" max-width="374">
+      <v-card v-for="city in cities" :key="city.name" class="ma-3" min-width="30%" max-width="30%">
         <v-card-title>{{ city.ruName }}</v-card-title>
 
         <v-card-text>
@@ -16,17 +16,21 @@
           </v-row>
           <v-row>
             {{ city.img }}
-            <v-img max-height="150" max-width="250" src="${$city.img}"></v-img>
+            <!-- <v-img max-height="150" max-width="250" src="${$city.img}"></v-img> -->
           </v-row>
           <v-row align="center" class="mx-0"> Ветер {{ city.windDirection }} {{ city.windSpeed }} м/с </v-row>
         </v-card-text>
+        <v-btn class="ml-3 mb-3" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.name)"> Удалить</v-btn>
       </v-card>
     </v-row>
     <v-row
       ><v-btn class="mx-auto" color="teal accent-3" v-if="!showAddNew" v-on:click="showAddNew = true"><v-icon>mdi-plus</v-icon> Добавить город</v-btn>
-      <v-card v-if="showAddNew" class="mx-auto my-12" max-width="374">
-        <v-text-field v-model="addingCityName" label="Название города" outlined></v-text-field>
-        <v-btn class="mx-auto" color="green accent-3" v-on:click="addCity">Добавить</v-btn>
+      <v-card v-if="showAddNew" class="mx-auto my-12" min-width="35%" max-width="35%">
+        <v-text-field v-model="addingCityName" class="mt-3 mx-3" label="Название города" outlined></v-text-field>
+        <v-row class="mt-3 mx-3">
+          <v-btn class=" mx-1" color="green accent-3" v-on:click="addCity">Добавить</v-btn>
+          <v-btn class=" mx-1" color="red accent-3" v-on:click="showAddNew = false">Отмена</v-btn></v-row
+        >
       </v-card></v-row
     >
   </v-container>
@@ -106,9 +110,13 @@ export default {
       });
     },
     addCity: function() {
-      this.cities.push({ name: this.addingCityName });
+      if (!this.cities.includes({ name: this.addingCityName })) this.cities.push({ name: this.addingCityName });
       this.getWeather();
       this.showAddNew = false;
+      this.getWeather();
+    },
+    deleteCity: function(name) {
+      this.cities.pop(name);
     }
   },
   mounted() {
