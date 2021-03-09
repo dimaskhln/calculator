@@ -1,7 +1,16 @@
 <template>
   <v-card id="calc" max-width="450" class="mx-auto my-12 pa-6"
     ><v-container class="pa-0" elevation="3">
-      <v-text-field outlined color="teal lighten-4" class="teal-input text-lg-h6" id="result" type="text" v-model="value"></v-text-field>
+      <v-text-field
+        outlined
+        color="teal lighten-4"
+        class="teal-input text-lg-h6"
+        id="result"
+        type="text"
+        v-model="value"
+        @keypress="isNumber($event)"
+        placeholder="0"
+      ></v-text-field>
       <v-row>
         <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('7')">7</v-btn></v-col>
         <v-col cols="40"><v-btn color="teal lighten-4" elevation="5" v-on:click="write('8')">8</v-btn></v-col>
@@ -56,7 +65,7 @@
 export default {
   data() {
     return {
-      value: '0',
+      value: '',
       value1: 0,
       value2: 0,
       action: '',
@@ -114,6 +123,15 @@ export default {
           this.value1 = this.value = this.value1 ** this.value2;
           this.done = true;
           break;
+      }
+    },
+    isNumber: function(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+        evt.preventDefault();
+      } else {
+        return true;
       }
     }
   },
