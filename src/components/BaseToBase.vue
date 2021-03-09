@@ -3,7 +3,7 @@
     ><v-card id="btb" max-width="450" class="mx-auto my-12 pa-6">
       <v-row>
         <v-col>
-          <v-text-field v-model="number" label="Число" outlined></v-text-field>
+          <v-text-field v-model="number" label="Число" outlined @keypress="isNumber($event)"></v-text-field>
         </v-col>
       </v-row>
       <v-row align="center">
@@ -18,7 +18,7 @@
         <v-btn class="mx-3 mb-3" color="green accent-2" v-on:click="convert()">Перевести</v-btn>
       </v-row>
       <v-row
-        ><v-card class="mx-3 mb-3 pa-3" elevation="2" outlined>Результат: {{ result }}</v-card></v-row
+        ><v-card v-if="result != 0" class="mx-3 mb-3 pa-3" elevation="2" outlined>Результат: {{ result }}</v-card></v-row
       >
     </v-card>
   </v-container>
@@ -42,7 +42,7 @@ export default {
       ],
       fromBase: '',
       toBase: '',
-      number: 0,
+      number: '',
       result: 0
     };
   },
@@ -60,6 +60,15 @@ export default {
           .toUpperCase();
       } catch (e) {
         console.error('Error in convertNumber: ' + e);
+      }
+    },
+    isNumber: function(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode !== 46) {
+        evt.preventDefault();
+      } else {
+        return true;
       }
     }
   },
