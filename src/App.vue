@@ -11,25 +11,7 @@
     </v-app-bar> -->
     <TabNavigator />
     <v-main> <router-view name="mainView"></router-view> </v-main>
-    <v-bottom-navigation color="teal" grow>
-      <v-btn>
-        <span>Recents</span>
-
-        <v-icon>mdi-history</v-icon>
-      </v-btn>
-
-      <v-btn>
-        <span>Favorites</span>
-
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn>
-        <span>Nearby</span>
-
-        <v-icon>mdi-map-marker</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
+    <Footer />
   </v-app>
 </template>
 
@@ -38,12 +20,12 @@
 </style>
 
 <script>
-//import Footer from './components/Footer';
+import Footer from './components/Footer.vue';
 import TabNavigator from './components/TabNavigator';
 export default {
   name: 'App',
   components: {
-    //    Footer,
+    Footer,
     TabNavigator
   },
   data: () => ({

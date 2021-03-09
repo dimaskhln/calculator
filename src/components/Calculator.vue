@@ -3,8 +3,8 @@
     ><v-container class="pa-0" elevation="3">
       <v-text-field
         outlined
-        color="teal lighten-4"
-        class="teal-input text-lg-h6"
+        color="teal darken-4"
+        class="teal-darken-4-input text-lg-h6"
         id="result"
         type="text"
         v-model="value"
