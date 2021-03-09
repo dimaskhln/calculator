@@ -57,63 +57,60 @@ export default {
         let windDirection = '0';
         let weatherCode = 0;
         let dt = '';
-        this.$axios
-          .get(`http://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`)
-          .then(
-            response => (
-              (cityObj.temp = response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp)),
-              (cityObj.ruName = response.data.name),
-              (cityObj.description = response.data.weather[0].description),
-              (cityObj.windSpeed = response.data.wind.speed),
-              ((cityObj.windDirection = response.data.wind.deg),
-              (windDirection = Number(cityObj.windDirection)),
-              windDirection >= 23 && windDirection < 68
-                ? (cityObj.windDirection = 'СВ')
-                : windDirection >= 68 && windDirection < 113
-                ? (cityObj.windDirection = 'В')
-                : windDirection >= 113 && windDirection < 158
-                ? (cityObj.windDirection = 'ЮВ')
-                : windDirection >= 158 && windDirection < 203
-                ? (cityObj.windDirection = 'Ю')
-                : windDirection >= 203 && windDirection < 248
-                ? (cityObj.windDirection = 'ЮЗ')
-                : windDirection >= 248 && windDirection < 293
-                ? (cityObj.windDirection = 'З')
-                : windDirection >= 293 && windDirection < 338
-                ? (cityObj.windDirection = 'СЗ')
-                : (cityObj.windDirection = 'С')),
-              ((weatherCode = Number(response.data.weather.id)),
-              (cityObj.img = '../assets/images/weather/'),
-              weatherCode >= 200 && weatherCode <= 232
-                ? (cityObj.img += 'storm')
-                : weatherCode >= 300 && weatherCode <= 321
-                ? (cityObj.img += 'drizzle')
-                : weatherCode >= 500 && weatherCode <= 531
-                ? (cityObj.img += 'rain')
-                : weatherCode >= 600 && weatherCode <= 622
-                ? (cityObj.img += 'snow')
-                : weatherCode >= 701 && weatherCode <= 771
-                ? (cityObj.img += 'misty')
-                : weatherCode == 781
-                ? (cityObj.img += 'tornado')
-                : weatherCode == 801
-                ? (cityObj.img += 'few-cloudy')
-                : weatherCode >= 802 && weatherCode <= 803
-                ? (cityObj.img += 'cloudy')
-                : weatherCode == 804
-                ? (cityObj.img += 'very-cloudy')
-                : (cityObj.img += 'sunny'),
-              (cityObj.img += '.png')),
-              ((dt = response.data.dt), (dt = new Date(dt * 1000)), (cityObj.dt = dt.toLocaleString()))
-            )
-          );
+        this.$axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
+          cityObj.temp = response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp);
+          cityObj.ruName = response.data.name;
+          cityObj.description = response.data.weather[0].description;
+          cityObj.windSpeed = response.data.wind.speed;
+          cityObj.windDirection = response.data.wind.deg;
+          windDirection = Number(cityObj.windDirection);
+          windDirection >= 23 && windDirection < 68
+            ? (cityObj.windDirection = 'СВ')
+            : windDirection >= 68 && windDirection < 113
+            ? (cityObj.windDirection = 'В')
+            : windDirection >= 113 && windDirection < 158
+            ? (cityObj.windDirection = 'ЮВ')
+            : windDirection >= 158 && windDirection < 203
+            ? (cityObj.windDirection = 'Ю')
+            : windDirection >= 203 && windDirection < 248
+            ? (cityObj.windDirection = 'ЮЗ')
+            : windDirection >= 248 && windDirection < 293
+            ? (cityObj.windDirection = 'З')
+            : windDirection >= 293 && windDirection < 338
+            ? (cityObj.windDirection = 'СЗ')
+            : (cityObj.windDirection = 'С');
+          weatherCode = Number(response.data.weather.id);
+          cityObj.img = '../assets/images/weather/';
+          weatherCode >= 200 && weatherCode <= 232
+            ? (cityObj.img += 'storm')
+            : weatherCode >= 300 && weatherCode <= 321
+            ? (cityObj.img += 'drizzle')
+            : weatherCode >= 500 && weatherCode <= 531
+            ? (cityObj.img += 'rain')
+            : weatherCode >= 600 && weatherCode <= 622
+            ? (cityObj.img += 'snow')
+            : weatherCode >= 701 && weatherCode <= 771
+            ? (cityObj.img += 'misty')
+            : weatherCode == 781
+            ? (cityObj.img += 'tornado')
+            : weatherCode == 801
+            ? (cityObj.img += 'few-cloudy')
+            : weatherCode >= 802 && weatherCode <= 803
+            ? (cityObj.img += 'cloudy')
+            : weatherCode == 804
+            ? (cityObj.img += 'very-cloudy')
+            : (cityObj.img += 'sunny');
+          cityObj.img += '.png';
+          dt = response.data.dtdt = new Date(dt * 1000);
+          cityObj.dt = dt.toLocaleString();
+        });
       });
     },
     addCity: function() {
       if (!this.cities.includes({ name: this.addingCityName })) this.cities.push({ name: this.addingCityName });
-      this.getWeather();
       this.showAddNew = false;
       this.getWeather();
+      this.addingCityName = '';
     },
     deleteCity: function(name) {
       this.cities.pop(name);
