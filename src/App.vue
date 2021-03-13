@@ -11,7 +11,7 @@
     </v-app-bar> -->
     <TabNavigator />
     <v-main> <router-view name="mainView"></router-view> </v-main>
-    <Footer />
+    <Footer :col="'col'" />
   </v-app>
 </template>
 
@@ -30,6 +30,7 @@ export default {
   },
   data: () => ({
     //
-  })
+  }),
+  props: ['col']
 };
 </script>
