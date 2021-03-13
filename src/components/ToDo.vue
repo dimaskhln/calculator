@@ -62,7 +62,6 @@
 </template>
 
 <script>
-import AppVue from '../App.vue';
 export default {
   data() {
     return {
@@ -72,12 +71,6 @@ export default {
       action: '',
       done: false
     };
-  },
-  render: createElement => {
-    const context = {
-      props: { col: 'secondary' }
-    };
-    return createElement(AppVue, context);
   },
   methods: {
     write: function(number) {
@@ -147,10 +140,8 @@ export default {
     document.getElementById('calc').classList.add('matte-bg');
     document.querySelector('.v-application--wrap').classList.remove('weather-bg');
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
-    document.querySelector('.v-application--wrap').classList.remove('todo-bg');
-    document.querySelector('.v-application--wrap').classList.add('calculator-bg');
-    console.log(AppVue.col);
-    AppVue.col = 'fff';
+    document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
+    document.querySelector('.v-application--wrap').classList.add('todo-bg');
   }
 };
 </script>
