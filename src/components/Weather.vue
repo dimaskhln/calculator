@@ -16,10 +16,10 @@
           </v-row>
           <v-row>
             {{ city.img }}
-            <!-- <v-img max-height="150" max-width="250" src="${$city.img}"></v-img> -->
           </v-row>
           <v-row align="center" class="mx-0"> Ветер {{ city.windDirection }} {{ city.windSpeed }} м/с </v-row>
         </v-card-text>
+        <v-img max-height="150" max-width="250" :src="city.img"></v-img>
         <v-btn class="ml-3 mb-3" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.name)"> Удалить</v-btn>
       </v-card>
     </v-row>
@@ -120,6 +120,7 @@ export default {
     this.getWeather('Novosibirsk');
     document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
+    document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.add('weather-bg');
   }
 };
