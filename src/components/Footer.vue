@@ -1,5 +1,5 @@
 <template>
-  <v-footer fixed v-bind:color="col" padless>
+  <v-footer fixed v-bind:color="col" padless class="mt-3">
     <v-row justify="center" no-gutters>
       <v-col class="py-4 text-center white--text" v-bind:color="col" cols="12">
         {{ new Date().getFullYear() }} — <strong>Дмитрий Халин {{ col }}</strong>
