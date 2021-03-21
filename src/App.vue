@@ -11,7 +11,7 @@
     </v-app-bar> -->
     <TabNavigator />
     <v-main> <router-view name="mainView"></router-view> </v-main>
-    <Footer :col="'col'" />
+    <!--<Footer :col="'col'" />-->
   </v-app>
 </template>
 
@@ -20,12 +20,12 @@
 </style>
 
 <script>
-import Footer from './components/Footer.vue';
+//import Footer from './components/Footer.vue';
 import TabNavigator from './components/TabNavigator';
 export default {
   name: 'App',
   components: {
-    Footer,
+    //Footer,
     TabNavigator
   },
   data: () => ({
