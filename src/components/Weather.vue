@@ -1,31 +1,32 @@
 <template>
   <v-container fluid>
-    <v-row>
-      <v-card v-for="city in cities" :key="city.name" class="ma-3" min-width="30%" max-width="30%">
-        <v-card-title>{{ city.ruName }}</v-card-title>
-
-        <v-card-text>
-          <v-row align="center" class="mx-0">
-            {{ city.temp }}
-          </v-row>
-          <v-row align="center" class="mx-0">
-            {{ city.description }}
-          </v-row>
-          <v-row align="center" class="mx-0">
-            {{ city.dt }}
-          </v-row>
+    <v-row align="center"
+      ><v-col v-for="city in cities" :key="city.name" cols="12" sm="12" md="4">
+        <v-card class="mx-3 mt-3">
+          <v-card-title>{{ city.ruName }}</v-card-title>
           <v-row>
-            {{ city.img }}
+            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="require('../assets/images/weather/' + city.img)"/></v-col>
+            <v-col cols="6" sm="3"
+              ><div class="text-h3 text-center">{{ city.temp }}</div></v-col
+            >
           </v-row>
-          <v-row align="center" class="mx-0"> Ветер {{ city.windDirection }} {{ city.windSpeed }} м/с </v-row>
-        </v-card-text>
-        <v-img max-height="150" max-width="250" :src="city.img"></v-img>
-        <v-btn class="ml-3 mb-3" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.name)"> Удалить</v-btn>
-      </v-card>
+          <v-card-text>
+            <v-row align="center" class="mx-0">
+              <div class="text-h6">{{ city.description }}</div>
+            </v-row>
+
+            <v-row align="center" class="mx-0">
+              Ветер <v-icon>mdi-{{ city.windDirectionIcon }}</v-icon> {{ city.windDirection }} {{ city.windSpeed }} м/с
+            </v-row>
+          </v-card-text>
+
+          <v-btn class="ml-3 mb-3" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.name)"> Удалить</v-btn>
+        </v-card>
+      </v-col>
     </v-row>
     <v-row
-      ><v-btn class="mx-auto" color="teal accent-3" v-if="!showAddNew" v-on:click="showAddNew = true"><v-icon>mdi-plus</v-icon> Добавить город</v-btn>
-      <v-card v-if="showAddNew" class="mx-auto my-12" min-width="35%" max-width="35%">
+      ><v-btn class="mb-6 mt-3 mx-auto" color="teal accent-3" v-if="!showAddNew" v-on:click="showAddNew = true"><v-icon>mdi-plus</v-icon> Добавить город</v-btn>
+      <v-card v-if="showAddNew" class="mx-auto my-12" min-width="50%" max-width="50%">
         <v-text-field v-model="addingCityName" class="mt-3 mx-3" label="Название города" outlined></v-text-field>
         <v-row class="mt-3 mx-3">
           <v-btn class=" mx-1" color="green accent-3" v-on:click="addCity">Добавить</v-btn>
@@ -36,6 +37,12 @@
   </v-container>
 </template>
 
+<style scoped>
+.weather {
+  vertical-align: center;
+}
+</style>
+
 <script>
 const apiKey = '5d498cca2f0e7342e2601295325ff976';
 
@@ -43,9 +50,12 @@ export default {
   data() {
     return {
       cities: [
-        { name: 'Novosibirsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', img: '', dt: '' },
-        { name: 'Moscow', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', img: '', dt: '' },
-        { name: 'Sochi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', img: '', dt: '' }
+        { name: 'Novosibirsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Tbilisi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Moscow', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Sochi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Tuapse', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Tomsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' }
       ],
       showAddNew: false,
       addingCityName: ''
@@ -56,64 +66,64 @@ export default {
       this.cities.forEach(cityObj => {
         let windDirection = '0';
         let weatherCode = 0;
-        let dt = '';
         this.$axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
           cityObj.temp = response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp);
           cityObj.ruName = response.data.name;
           cityObj.description = response.data.weather[0].description;
           cityObj.windSpeed = response.data.wind.speed;
-          cityObj.windDirection = response.data.wind.deg;
+          cityObj.windDirection = Math.round(Number(response.data.wind.deg), 0);
           windDirection = Number(cityObj.windDirection);
           windDirection >= 23 && windDirection < 68
-            ? (cityObj.windDirection = 'СВ')
+            ? ((cityObj.windDirection = 'СВ'), (cityObj.windDirectionIcon = 'arrow-top-right-thick'))
             : windDirection >= 68 && windDirection < 113
-            ? (cityObj.windDirection = 'В')
+            ? ((cityObj.windDirection = 'В'), (cityObj.windDirectionIcon = 'arrow-right-thick'))
             : windDirection >= 113 && windDirection < 158
-            ? (cityObj.windDirection = 'ЮВ')
+            ? ((cityObj.windDirection = 'ЮВ'), (cityObj.windDirectionIcon = 'arrow-bottom-right-thick'))
             : windDirection >= 158 && windDirection < 203
-            ? (cityObj.windDirection = 'Ю')
+            ? ((cityObj.windDirection = 'Ю'), (cityObj.windDirectionIcon = 'arrow-down-thick'))
             : windDirection >= 203 && windDirection < 248
-            ? (cityObj.windDirection = 'ЮЗ')
+            ? ((cityObj.windDirection = 'ЮЗ'), (cityObj.windDirectionIcon = 'arrow-bottom-left-thick'))
             : windDirection >= 248 && windDirection < 293
-            ? (cityObj.windDirection = 'З')
+            ? ((cityObj.windDirection = 'З'), (cityObj.windDirectionIcon = 'arrow-left-thick'))
             : windDirection >= 293 && windDirection < 338
-            ? (cityObj.windDirection = 'СЗ')
-            : (cityObj.windDirection = 'С');
-          weatherCode = Number(response.data.weather.id);
-          cityObj.img = '../assets/images/weather/';
+            ? ((cityObj.windDirection = 'СЗ'), (cityObj.windDirectionIcon = 'arrow-top-left-thick'))
+            : ((cityObj.windDirection = 'С'), (cityObj.windDirectionIcon = 'arrow-up-thick'));
+
+          weatherCode = Number(response.data.weather[0].id);
           weatherCode >= 200 && weatherCode <= 232
-            ? (cityObj.img += 'storm')
+            ? (cityObj.img = 'storm')
             : weatherCode >= 300 && weatherCode <= 321
-            ? (cityObj.img += 'drizzle')
+            ? (cityObj.img = 'drizzle')
             : weatherCode >= 500 && weatherCode <= 531
-            ? (cityObj.img += 'rain')
+            ? (cityObj.img = 'rain')
             : weatherCode >= 600 && weatherCode <= 622
-            ? (cityObj.img += 'snow')
+            ? (cityObj.img = 'snow')
             : weatherCode >= 701 && weatherCode <= 771
-            ? (cityObj.img += 'misty')
+            ? (cityObj.img = 'misty')
             : weatherCode == 781
-            ? (cityObj.img += 'tornado')
+            ? (cityObj.img = 'tornado')
             : weatherCode == 801
-            ? (cityObj.img += 'few-cloudy')
+            ? (cityObj.img = 'few-cloudy')
             : weatherCode >= 802 && weatherCode <= 803
-            ? (cityObj.img += 'cloudy')
+            ? (cityObj.img = 'cloudy')
             : weatherCode == 804
-            ? (cityObj.img += 'very-cloudy')
-            : (cityObj.img += 'sunny');
+            ? (cityObj.img = 'very-cloudy')
+            : (cityObj.img = 'sunny');
           cityObj.img += '.png';
-          dt = response.data.dtdt = new Date(dt * 1000);
-          cityObj.dt = dt.toLocaleString();
         });
       });
     },
     addCity: function() {
-      if (!this.cities.includes({ name: this.addingCityName })) this.cities.push({ name: this.addingCityName });
+      if (!this.cities.some(c => c.name === this.addingCityName || c.ruName === this.addingCityName)) this.cities.push({ name: this.addingCityName });
+      else {
+        alert('Информация о погоде в данном городе уже есть');
+      }
       this.showAddNew = false;
       this.getWeather();
       this.addingCityName = '';
     },
     deleteCity: function(name) {
-      this.cities.pop(name);
+      this.cities = this.cities.filter(city => city.name != name);
     }
   },
   mounted() {
@@ -124,4 +134,9 @@ export default {
     document.querySelector('.v-application--wrap').classList.add('weather-bg');
   }
 };
+/*
+Погода - города в которых я бывал
+Список заданий - что я сделал
+Калькулятор - сколько я хочу зарабатывать
+*/
 </script>
