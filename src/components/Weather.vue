@@ -5,7 +5,7 @@
         <v-card class="mx-3 mt-3">
           <v-card-title>{{ city.ruName }}</v-card-title>
           <v-row>
-            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="require('./assets/images/weather/' + city.img)"/></v-col>
+            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="require('../assets/images/weather/' + city.img)"/></v-col>
             <v-col cols="6" sm="3"
               ><div class="text-h3 text-center">{{ city.temp }}</div></v-col
             >
