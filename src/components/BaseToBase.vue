@@ -6,16 +6,16 @@
           <v-text-field v-model="number" label="Число" outlined @keypress="isNumber($event)"></v-text-field>
         </v-col>
       </v-row>
-      <v-row align="center">
+      <v-row>
         <v-col class="d-flex" cols="12" sm="6">
           <v-select v-model="fromBase" :items="basesFrom" label="Из" outlined></v-select>
         </v-col>
-        <v-col class="d-flex" cols="12" sm="6">
+        <v-col class="d-flex" cols="12" sm="1">
           <v-btn icon color="primary" v-on:click="changeBases()">
             <v-icon>mdi-cached</v-icon>
           </v-btn></v-col
         >
-        <v-col class="d-flex" cols="12" sm="6">
+        <v-col class="d-flex" cols="12" sm="5">
           <v-select v-model="toBase" :items="basesTo" label="В" outlined></v-select>
         </v-col>
       </v-row>
