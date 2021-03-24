@@ -66,7 +66,7 @@ export default {
       this.cities.forEach(cityObj => {
         let windDirection = '0';
         let weatherCode = 0;
-        this.$axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
+        this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
           cityObj.temp = response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp);
           cityObj.ruName = response.data.name;
           cityObj.description = response.data.weather[0].description;
