@@ -5,7 +5,7 @@
         <v-card class="mx-3 mt-3">
           <v-card-title>{{ city.ruName }}</v-card-title>
           <v-row>
-            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="require('../assets/images/weather/' + city.img)"/></v-col>
+            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
             <v-col cols="6" sm="3"
               ><div class="text-h3 text-center">{{ city.temp }}</div></v-col
             >
@@ -66,7 +66,7 @@ export default {
       this.cities.forEach(cityObj => {
         let windDirection = '0';
         let weatherCode = 0;
-        this.$axios.get(`http://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
+        this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
           cityObj.temp = response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp);
           cityObj.ruName = response.data.name;
           cityObj.description = response.data.weather[0].description;
