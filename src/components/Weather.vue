@@ -1,9 +1,13 @@
 <template>
   <v-container fluid>
+    <v-overlay :value="isLoading">
+      <v-progress-circular indeterminate size="64" color="teal lighten-4"></v-progress-circular>
+    </v-overlay>
     <v-row align="center"
       ><v-col v-for="city in cities" :key="city.name" cols="12" sm="12" md="4">
         <v-card class="mx-3 mt-3">
-          <v-card-title>{{ city.ruName }}</v-card-title>
+          <v-card-title>{{ city.ruName }} {{ tabColor }}</v-card-title>
+
           <v-row>
             <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
             <v-col cols="6" sm="3"
@@ -58,16 +62,19 @@ export default {
         { name: 'Tomsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' }
       ],
       showAddNew: false,
-      addingCityName: ''
+      addingCityName: '',
+      isLoading: true
     };
   },
   methods: {
     getWeather: function() {
+      console.log(this.cities);
+      this.isLoading = true;
       this.cities.forEach(cityObj => {
         let windDirection = '0';
         let weatherCode = 0;
         this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
-          cityObj.temp = response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp);
+          cityObj.temp = String(response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp));
           cityObj.ruName = response.data.name;
           cityObj.description = response.data.weather[0].description;
           cityObj.windSpeed = response.data.wind.speed;
@@ -112,15 +119,17 @@ export default {
           cityObj.img += '.png';
         });
       });
+      this.isLoading = false;
     },
     addCity: function() {
-      if (!this.cities.some(c => c.name === this.addingCityName || c.ruName === this.addingCityName)) this.cities.push({ name: this.addingCityName });
-      else {
+      if (!this.cities.some(c => c.name.toLowerCase() === this.addingCityName.toLowerCase() || c.ruName === this.addingCityName)) {
+        this.cities.push({ name: this.addingCityName });
+        this.showAddNew = false;
+        this.getWeather();
+        this.addingCityName = '';
+      } else {
         alert('Информация о погоде в данном городе уже есть');
       }
-      this.showAddNew = false;
-      this.getWeather();
-      this.addingCityName = '';
     },
     deleteCity: function(name) {
       this.cities = this.cities.filter(city => city.name != name);

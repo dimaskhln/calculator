@@ -108,6 +108,9 @@ export default {
         priority: this.addingPriority,
         done: false
       });
+      this.addingName = '';
+      this.addingDescription = '';
+      this.showAddNew = !this.showAddNew;
     }
   },
   mounted() {

@@ -9,28 +9,39 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: '*',
+    components: {
+      mainView: Calculator
+    },
+    props: { tabColor: 'green' }
+  },
+  {
     path: '/calculator',
     components: {
       mainView: Calculator
-    }
+    },
+    props: { tabColor: 'green' }
   },
   {
     path: '/base-to-base',
     components: {
       mainView: BaseToBase
-    }
+    },
+    props: { tabColor: 'blue' }
   },
   {
     path: '/weather',
     components: {
       mainView: Weather
-    }
+    },
+    props: { tabColor: 'green' }
   },
   {
     path: '/todo',
     components: {
       mainView: ToDo
-    }
+    },
+    props: { tabColor: 'gray' }
   }
 ];
 
