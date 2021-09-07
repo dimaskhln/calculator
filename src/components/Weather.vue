@@ -32,7 +32,7 @@
       ><v-btn class="mb-6 mt-3 mx-auto" color="teal accent-3" v-if="!showAddNew" v-on:click="showAddNew = true"><v-icon>mdi-plus</v-icon> Добавить город</v-btn>
       <v-card v-if="showAddNew" class="mx-auto my-12" min-width="50%" max-width="50%">
         <v-text-field v-model="addingCityName" class="mt-3 mx-3" label="Название города" outlined></v-text-field>
-        <v-row class="mt-3 mx-3">
+        <v-row class="mx-3 pb-6">
           <v-btn class=" mx-1" color="green accent-3" v-on:click="addCity">Добавить</v-btn>
           <v-btn class=" mx-1" color="red accent-3" v-on:click="showAddNew = false">Отмена</v-btn></v-row
         >
@@ -59,7 +59,10 @@ export default {
         { name: 'Moscow', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
         { name: 'Sochi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
         { name: 'Tuapse', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Tomsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' }
+        { name: 'Tomsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Krasnoyarsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Sterlitamak', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
+        { name: 'Ufa', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' }
       ],
       showAddNew: false,
       addingCityName: '',
