@@ -39,8 +39,8 @@
           ><v-row justify="center"> <v-date-picker v-model="addingDate" :allowed-dates="allowedDates" class="ma-4"></v-date-picker> </v-row></v-col
       ></v-row>
       <v-row>
-        <v-btn color="green accent-2" v-on:click="addTask()"><v-icon>mdi-plus</v-icon></v-btn>
-        <v-btn color="red accent-2" v-on:click="showAddNew = false"><v-icon>mdi-delete-outline</v-icon></v-btn>
+        <v-btn class="ml-7 mr-3 mb-3" color="green accent-2" v-on:click="addTask()"><v-icon>mdi-plus</v-icon></v-btn>
+        <v-btn class="mb-3" color="red accent-2" v-on:click="showAddNew = !showAddNew"><v-icon>mdi-delete-outline</v-icon></v-btn>
       </v-row>
     </v-card>
   </v-container>
@@ -51,10 +51,40 @@ export default {
   data() {
     return {
       tasks: [
-        { id: 0, name: 'Сделать зарядку', date: '2021-03-16', description: 'Нужно по-любому сделать зарядку!!', priority: 1, done: false },
-        { id: 1, name: 'Выгулять кызю', date: '2021-03-19', description: 'Не забыть мешочки!', priority: 3, done: false },
-        { id: 2, name: 'Поздравить всех с праздником', date: '2021-03-08', description: 'Порадовать дорогих женщин', priority: 1, done: true },
-        { id: 3, name: 'Поздравить Дашу!', date: '2021-03-27', description: 'От чистого сердца!', priority: 2, done: false }
+        {
+          id: 0,
+          name: 'Стать чемпионом школьной лиги КВН',
+          date: '2011-05-16',
+          description: 'И гордиться потом',
+          priority: 1,
+          done: true
+        },
+        {
+          id: 1,
+          name: 'Закончить бакалавриат',
+          date: '2017-07-01',
+          description: 'На факультете прикладной математики и информатики НГТУ',
+          priority: 1,
+          done: true
+        },
+
+        {
+          id: 2,
+          name: 'Закончить магистратуру',
+          date: '2019-07-04',
+          description: 'Тоже на факультете прикладной математики и информатики НГТУ',
+          priority: 1,
+          done: true
+        },
+        {
+          id: 3,
+          name: 'Получить опыт работы над реальными задачами',
+          date: '2021-10-01',
+          description: 'Разработать веб-приложение на платформе ASP.NET и мобильное приложение на Android',
+          priority: 1,
+          done: true
+        },
+        { id: 4, name: 'Найти место работы по душе', date: '2021-12-31', description: '', priority: 1, done: false }
       ],
       showAddNew: false,
       addingName: '',
@@ -124,10 +154,7 @@ export default {
 /*
 TODO:
 Сортировка
-выбор даты
-Удаление
 Календарь задач
-Добавление
 */
 const timeElapsed = Date.now();
 var date = new Date();
