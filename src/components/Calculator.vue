@@ -57,8 +57,9 @@
           ><v-btn color="green accent-2" elevation="5" v-on:click="equals()"><v-icon>mdi-equal</v-icon></v-btn></v-col
         >
       </v-row>
-    </v-container></v-card
-  >
+    </v-container>
+    <v-badge v-if="isEqualPressed">asd</v-badge>
+  </v-card>
 </template>
 
 <script>
@@ -70,7 +71,8 @@ export default {
       value1: 0,
       value2: 0,
       action: '',
-      done: false
+      done: false,
+      isEqualPressed: false
     };
   },
   render: createElement => {
@@ -108,6 +110,8 @@ export default {
       if (!this.done) {
         this.value2 = Number(this.value);
       }
+
+      this.isEqualPressed = true;
 
       switch (this.action) {
         case 'add':
