@@ -1,6 +1,6 @@
 <template>
-  <v-card id="calc" max-width="450" class="mx-auto my-12 pa-6"
-    ><v-container class="pa-0" elevation="3">
+  <v-card id="calc" max-width="450" class="mx-auto my-12 pa-6">
+    <v-container class="pa-0" elevation="3">
       <v-text-field
         outlined
         color="teal darken-4"
@@ -58,7 +58,9 @@
         >
       </v-row>
     </v-container>
-    <v-badge v-if="isEqualPressed">asd</v-badge>
+    <v-container class="pa-0" elevation="3">
+      <v-alert class="mt-6 mb-0" v-if="isEqualPressed" text color="light-blue darken-4"><v-icon class="mr-2">mdi-cash-100</v-icon>{{ salaryText }}</v-alert>
+    </v-container>
   </v-card>
 </template>
 
@@ -72,7 +74,8 @@ export default {
       value2: 0,
       action: '',
       done: false,
-      isEqualPressed: false
+      isEqualPressed: false,
+      salaryText: ''
     };
   },
   render: createElement => {
@@ -111,8 +114,6 @@ export default {
         this.value2 = Number(this.value);
       }
 
-      this.isEqualPressed = true;
-
       switch (this.action) {
         case 'add':
           this.value1 = this.value = this.value1 + this.value2;
@@ -134,7 +135,19 @@ export default {
           this.value1 = this.value = this.value1 ** this.value2;
           this.done = true;
           break;
+      } // Сдобрить эмодзями ↓
+      if (this.value - 60000 <= 5000 && this.value - 60000 >= -5000) {
+        this.salaryText = 'Да, такая зарплата меня устроит (на начальном этапе)';
+      } else if (this.value - 60000 < -20000) {
+        this.salaryText = 'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз';
+      } else if (this.value - 60000 < -5000 && this.value - 60000 >= -20000) {
+        this.salaryText = 'Близко к моей желаемой зарплате, но хочется большего';
+      } else if (this.value - 60000 > 5000 && this.value - 60000 <= 25000) {
+        this.salaryText = 'Если это моя будущая зарплата, то считайте мы договорились'; // Что-то придумать другое
+      } else if (this.value - 60000 > 25000) {
+        this.salaryText = 'Пока можно начальство такими числами не пугать (ключевое слово "пока")';
       }
+      this.isEqualPressed = true;
     },
     isNumber: function(evt) {
       evt = evt ? evt : window.event;
