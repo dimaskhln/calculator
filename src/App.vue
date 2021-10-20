@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <TabNavigator tabColor="tabColor" />
+    <TabNavigator />
     <v-main> <router-view name="mainView"></router-view> </v-main>
     <!--<Footer :col="'col'" />-->
   </v-app>
@@ -19,9 +19,8 @@ export default {
     //Footer,
     TabNavigator
   },
-  data: () => ({
-    //
-  }),
-  props: ['tabColor']
+  data() {
+    return {};
+  }
 };
 </script>

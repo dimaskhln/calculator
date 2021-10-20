@@ -6,7 +6,7 @@
     <v-row align="center"
       ><v-col v-for="city in cities" :key="city.name" cols="12" sm="12" md="4">
         <v-card class="mx-3 mt-3">
-          <v-card-title>{{ city.ruName }} {{ tabColor }}</v-card-title>
+          <v-card-title>{{ city.ruName }}</v-card-title>
 
           <v-row>
             <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
@@ -54,15 +54,15 @@ export default {
   data() {
     return {
       cities: [
-        { name: 'Novosibirsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Tbilisi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Moscow', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Sochi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Tuapse', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Tomsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Krasnoyarsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Sterlitamak', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' },
-        { name: 'Ufa', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '' }
+        { name: 'Novosibirsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Tbilisi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Moscow', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Sochi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Tuapse', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Tomsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Krasnoyarsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Sterlitamak', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+        { name: 'Ufa', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' }
       ],
       showAddNew: false,
       addingCityName: '',
