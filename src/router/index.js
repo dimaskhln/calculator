@@ -4,6 +4,7 @@ import Calculator from '../components/Calculator.vue';
 import BaseToBase from '../components/BaseToBase.vue';
 import Weather from '../components/Weather.vue';
 import ToDo from '../components/ToDo.vue';
+import About from '../components/About.vue';
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,13 @@ const routes = [
     path: '/todo',
     components: {
       mainView: ToDo
+    },
+    props: { tabColor: 'gray' }
+  },
+  {
+    path: '/about',
+    components: {
+      mainView: About
     },
     props: { tabColor: 'gray' }
   }

@@ -86,6 +86,10 @@ export default {
   },
   methods: {
     write: function(number) {
+      if (this.isEqualPressed) {
+        this.value = '';
+        this.isEqualPressed = false;
+      }
       number == '.' ? (this.value += number) : this.value == '0' ? (this.value = number) : (this.value += number);
     },
     reset: function() {
@@ -94,6 +98,7 @@ export default {
       this.value2 = 0;
       this.action = '';
       this.done = false;
+      this.isEqualPressed = false;
     },
     remember: function(act) {
       this.done = false;
@@ -159,6 +164,63 @@ export default {
       }
     }
   },
+  created() {
+    window.addEventListener('keydown', e => {
+      switch (e.code) {
+        case 'Numpad1' || 'Digit1':
+          this.write('1');
+          break;
+        case 'Numpad2' || 'Digit2':
+          this.write('2');
+          break;
+        case 'Numpad3' || 'Digit3':
+          this.write('3');
+          break;
+        case 'Numpad4' || 'Digit4':
+          this.write('4');
+          break;
+        case 'Numpad5' || 'Digit5':
+          this.write('5');
+          break;
+        case 'Numpad6' || 'Digit6':
+          this.write('6');
+          break;
+        case 'Numpad7' || 'Digit7':
+          this.write('7');
+          break;
+        case 'Numpad8' || 'Digit8':
+          this.write('8');
+          break;
+        case 'Numpad9' || 'Digit9':
+          this.write('9');
+          break;
+        case 'Numpad0' || 'Digit0':
+          this.write('0');
+          break;
+        case 'NumpadDecimal' || 'Period':
+          this.write('.');
+          break;
+        case 'NumpadDivide' || 'Slash':
+          this.remember('divide');
+          break;
+        case 'NumpadMultiply':
+          this.remember('multiply');
+          break;
+        case 'NumpadSubtract' || 'Minus':
+          this.remember('subtract');
+          break;
+        case 'NumpadAdd':
+          this.remember('add');
+          break;
+        case 'NumpadEnter' || 'Enter' || 'Equal':
+          this.equals();
+          break;
+        case 'Escape':
+          this.reset();
+          break;
+      }
+    });
+  },
   mounted() {
     document.getElementById('calc').classList.remove('theme--light');
     document.getElementById('calc').classList.add('matte-bg');
@@ -166,8 +228,6 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.add('calculator-bg');
-    console.log(AppVue.col);
-    AppVue.col = 'fff';
   }
 };
 </script>
