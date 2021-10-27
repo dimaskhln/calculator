@@ -31,13 +31,43 @@
     <v-row
       ><v-btn class="mb-6 mt-3 mx-auto" color="teal accent-3" v-if="!showAddNew" v-on:click="showAddNew = true"><v-icon>mdi-plus</v-icon> Добавить город</v-btn>
       <v-card v-if="showAddNew" class="mx-auto my-12" min-width="50%" max-width="50%">
-        <v-text-field v-model="addingCityName" class="mt-3 mx-3" label="Название города" outlined></v-text-field>
+        <v-text-field v-model="addingCity.name" class="mt-3 mx-3" label="Название города" outlined></v-text-field>
         <v-row class="mx-3 pb-6">
           <v-btn class=" mx-1" color="green accent-3" v-on:click="addCity">Добавить</v-btn>
           <v-btn class=" mx-1" color="red accent-3" v-on:click="showAddNew = false">Отмена</v-btn></v-row
         >
       </v-card></v-row
     >
+    <v-dialog v-model="dialog" max-width="500">
+      <v-card>
+        <v-card-title class="text-h5">
+          Это не просто погодный виджет!
+        </v-card-title>
+
+        <v-card-text>
+          Да, погоду здесь узнать можно, но так же можно узнать в каких городах я уже побывал!
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="green darken-1" text @click="dialog = false">
+            Понятно
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-snackbar v-model="snackbar" :timeout="snackbarTimeout">
+      {{ snackbarText }}
+
+      <template v-slot:action="{ attrs }">
+        <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
+          Закрыть
+        </v-btn>
+      </template>
+    </v-snackbar>
+    <v-footer absolute>
+      <v-col class="text-center" height="20" cols="12"> Информация о погоде - <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a> </v-col>
+    </v-footer>
   </v-container>
 </template>
 
@@ -65,18 +95,30 @@ export default {
         { name: 'Ufa', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' }
       ],
       showAddNew: false,
-      addingCityName: '',
-      isLoading: true
+      addingCity: { name: '', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+      isLoading: true,
+      dialog: true,
+      snackbar: false,
+      snackbarText: '',
+      snackbarTimeout: 3000
     };
   },
   methods: {
     getWeather: function() {
-      console.log(this.cities);
       this.isLoading = true;
       this.cities.forEach(cityObj => {
-        let windDirection = '0';
-        let weatherCode = 0;
-        this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
+        this.loadWeather(cityObj);
+      });
+      this.isLoading = false;
+    },
+    loadWeather: function(cityObj) {
+      let windDirection = '0';
+      let weatherCode = 0;
+      this.$axios.timeout = 20;
+      this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
+        if (response.status >= 400 && response.status <= 499) {
+          return false;
+        } else {
           cityObj.temp = String(response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp));
           cityObj.ruName = response.data.name;
           cityObj.description = response.data.weather[0].description;
@@ -120,35 +162,40 @@ export default {
             ? (cityObj.img = 'very-cloudy')
             : (cityObj.img = 'sunny');
           cityObj.img += '.png';
-        });
+          console.log(cityObj);
+          return true;
+        }
       });
-      this.isLoading = false;
     },
     addCity: function() {
-      if (!this.cities.some(c => c.name.toLowerCase() === this.addingCityName.toLowerCase() || c.ruName === this.addingCityName)) {
-        this.cities.push({ name: this.addingCityName });
+      if (!this.cities.some(c => c.name.toLowerCase() === this.addingCity.name.toLowerCase() || c.ruName === this.addingCity.name)) {
         this.showAddNew = false;
-        this.getWeather();
-        this.addingCityName = '';
+        if (this.loadWeather(this.addingCity)) {
+          this.cities.push(this.addingCity);
+        } else {
+          // this.snackbarText = 'Информации о данном городе не существует';
+          // this.snackbar = true;
+        }
+        this.addingCity = { name: '', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' };
       } else {
-        alert('Информация о погоде в данном городе уже есть');
+        this.snackbarText = 'Информация о погоде в данном городе уже есть';
+        this.snackbar = true;
       }
     },
     deleteCity: function(name) {
       this.cities = this.cities.filter(city => city.name != name);
+      this.snackbarText = 'Информация о городе удалена';
+      this.snackbar = true;
     }
   },
   mounted() {
-    this.getWeather('Novosibirsk');
     document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.add('weather-bg');
+  },
+  created() {
+    this.getWeather();
   }
 };
-/*
-Погода - города в которых я бывал
-Список заданий - что я сделал
-Калькулятор - сколько я хочу зарабатывать
-*/
 </script>
