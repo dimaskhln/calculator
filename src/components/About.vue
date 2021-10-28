@@ -31,8 +31,6 @@ export default {
   },
   methods: {},
   mounted() {
-    document.getElementById('btb').classList.remove('theme--light');
-    document.getElementById('btb').classList.add('matte-bg');
     document.querySelector('.v-application--wrap').classList.remove('weather-bg');
     document.querySelector('.v-application--wrap').classList.add('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
