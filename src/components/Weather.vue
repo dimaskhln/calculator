@@ -38,6 +38,13 @@
         >
       </v-card></v-row
     >
+    <v-row
+      ><v-footer width="100%">
+        <v-col class="text-center" color="teal lighten-4" height="20" cols="12">
+          Информация о погоде - <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
+        </v-col>
+      </v-footer></v-row
+    >
     <v-dialog v-model="dialog" max-width="500">
       <v-card>
         <v-card-title class="text-h5">
@@ -65,9 +72,6 @@
         </v-btn>
       </template>
     </v-snackbar>
-    <v-footer absolute>
-      <v-col class="text-center" height="20" cols="12"> Информация о погоде - <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a> </v-col>
-    </v-footer>
   </v-container>
 </template>
 
@@ -111,72 +115,104 @@ export default {
       });
       this.isLoading = false;
     },
-    loadWeather: function(cityObj) {
+    loadWeather: async function(cityObj) {
       let windDirection = '0';
       let weatherCode = 0;
       this.$axios.timeout = 20;
-      this.$axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`).then(function(response) {
-        if (response.status >= 400 && response.status <= 499) {
-          return false;
-        } else {
-          cityObj.temp = String(response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp));
-          cityObj.ruName = response.data.name;
-          cityObj.description = response.data.weather[0].description;
-          cityObj.windSpeed = response.data.wind.speed;
-          cityObj.windDirection = Math.round(Number(response.data.wind.deg), 0);
-          windDirection = Number(cityObj.windDirection);
-          windDirection >= 23 && windDirection < 68
-            ? ((cityObj.windDirection = 'СВ'), (cityObj.windDirectionIcon = 'arrow-top-right-thick'))
-            : windDirection >= 68 && windDirection < 113
-            ? ((cityObj.windDirection = 'В'), (cityObj.windDirectionIcon = 'arrow-right-thick'))
-            : windDirection >= 113 && windDirection < 158
-            ? ((cityObj.windDirection = 'ЮВ'), (cityObj.windDirectionIcon = 'arrow-bottom-right-thick'))
-            : windDirection >= 158 && windDirection < 203
-            ? ((cityObj.windDirection = 'Ю'), (cityObj.windDirectionIcon = 'arrow-down-thick'))
-            : windDirection >= 203 && windDirection < 248
-            ? ((cityObj.windDirection = 'ЮЗ'), (cityObj.windDirectionIcon = 'arrow-bottom-left-thick'))
-            : windDirection >= 248 && windDirection < 293
-            ? ((cityObj.windDirection = 'З'), (cityObj.windDirectionIcon = 'arrow-left-thick'))
-            : windDirection >= 293 && windDirection < 338
-            ? ((cityObj.windDirection = 'СЗ'), (cityObj.windDirectionIcon = 'arrow-top-left-thick'))
-            : ((cityObj.windDirection = 'С'), (cityObj.windDirectionIcon = 'arrow-up-thick'));
+      this.$axios
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`, { validateStatus: false })
+        .then(function(response) {
+          if (response.status >= 400 && response.status <= 499) {
+            // console.log('no');
+            return false;
+          } else {
+            console.log('yes');
+            cityObj.temp = String(response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp));
+            cityObj.ruName = response.data.name;
+            cityObj.description = response.data.weather[0].description;
+            cityObj.windSpeed = response.data.wind.speed;
+            cityObj.windDirection = Math.round(Number(response.data.wind.deg), 0);
+            windDirection = Number(cityObj.windDirection);
+            windDirection >= 23 && windDirection < 68
+              ? ((cityObj.windDirection = 'СВ'), (cityObj.windDirectionIcon = 'arrow-top-right-thick'))
+              : windDirection >= 68 && windDirection < 113
+              ? ((cityObj.windDirection = 'В'), (cityObj.windDirectionIcon = 'arrow-right-thick'))
+              : windDirection >= 113 && windDirection < 158
+              ? ((cityObj.windDirection = 'ЮВ'), (cityObj.windDirectionIcon = 'arrow-bottom-right-thick'))
+              : windDirection >= 158 && windDirection < 203
+              ? ((cityObj.windDirection = 'Ю'), (cityObj.windDirectionIcon = 'arrow-down-thick'))
+              : windDirection >= 203 && windDirection < 248
+              ? ((cityObj.windDirection = 'ЮЗ'), (cityObj.windDirectionIcon = 'arrow-bottom-left-thick'))
+              : windDirection >= 248 && windDirection < 293
+              ? ((cityObj.windDirection = 'З'), (cityObj.windDirectionIcon = 'arrow-left-thick'))
+              : windDirection >= 293 && windDirection < 338
+              ? ((cityObj.windDirection = 'СЗ'), (cityObj.windDirectionIcon = 'arrow-top-left-thick'))
+              : ((cityObj.windDirection = 'С'), (cityObj.windDirectionIcon = 'arrow-up-thick'));
 
-          weatherCode = Number(response.data.weather[0].id);
-          weatherCode >= 200 && weatherCode <= 232
-            ? (cityObj.img = 'storm')
-            : weatherCode >= 300 && weatherCode <= 321
-            ? (cityObj.img = 'drizzle')
-            : weatherCode >= 500 && weatherCode <= 531
-            ? (cityObj.img = 'rain')
-            : weatherCode >= 600 && weatherCode <= 622
-            ? (cityObj.img = 'snow')
-            : weatherCode >= 701 && weatherCode <= 771
-            ? (cityObj.img = 'misty')
-            : weatherCode == 781
-            ? (cityObj.img = 'tornado')
-            : weatherCode == 801
-            ? (cityObj.img = 'few-cloudy')
-            : weatherCode >= 802 && weatherCode <= 803
-            ? (cityObj.img = 'cloudy')
-            : weatherCode == 804
-            ? (cityObj.img = 'very-cloudy')
-            : (cityObj.img = 'sunny');
-          cityObj.img += '.png';
-          console.log(cityObj);
-          return true;
-        }
-      });
+            weatherCode = Number(response.data.weather[0].id);
+            weatherCode >= 200 && weatherCode <= 232
+              ? (cityObj.img = 'storm')
+              : weatherCode >= 300 && weatherCode <= 321
+              ? (cityObj.img = 'drizzle')
+              : weatherCode >= 500 && weatherCode <= 531
+              ? (cityObj.img = 'rain')
+              : weatherCode >= 600 && weatherCode <= 622
+              ? (cityObj.img = 'snow')
+              : weatherCode >= 701 && weatherCode <= 771
+              ? (cityObj.img = 'misty')
+              : weatherCode == 781
+              ? (cityObj.img = 'tornado')
+              : weatherCode == 801
+              ? (cityObj.img = 'few-cloudy')
+              : weatherCode >= 802 && weatherCode <= 803
+              ? (cityObj.img = 'cloudy')
+              : weatherCode == 804
+              ? (cityObj.img = 'very-cloudy')
+              : (cityObj.img = 'sunny');
+            cityObj.img += '.png';
+            // console.log(cityObj);
+            return true;
+          }
+        })
+        .catch(function() {
+          return false;
+        });
     },
-    addCity: function() {
+    addCity: async function() {
+      var aaa = this;
       if (!this.cities.some(c => c.name.toLowerCase() === this.addingCity.name.toLowerCase() || c.ruName === this.addingCity.name)) {
         this.showAddNew = false;
-        if (this.loadWeather(this.addingCity)) {
-          this.cities.push(this.addingCity);
-        } else {
-          // this.snackbarText = 'Информации о данном городе не существует';
-          // this.snackbar = true;
-        }
-        this.addingCity = { name: '', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' };
+        let promise = new Promise(function(resolve) {
+          // let r = aaa.loadWeather(aaa.addingCity);
+          // console.log(r);
+          if (aaa.loadWeather(aaa.addingCity)) {
+            resolve('done');
+          } else {
+            resolve('error');
+          }
+        });
+
+        promise.then(function(response) {
+          console.log(response);
+          aaa.cities.push(aaa.addingCity);
+          aaa.addingCity = {
+            name: '',
+            ruName: '',
+            temp: '',
+            description: '',
+            windSpeed: '',
+            windDirection: '',
+            windDirectionIcon: '',
+            img: '',
+            localTime: ''
+          };
+        });
+
+        promise.catch(function(response) {
+          console.log(response);
+          aaa.snackbarText = 'Информации о данном городе не существует';
+          aaa.snackbar = true;
+        });
       } else {
         this.snackbarText = 'Информация о погоде в данном городе уже есть';
         this.snackbar = true;
