@@ -5,13 +5,16 @@
     </v-overlay>
     <v-row align="center"
       ><v-col v-for="city in cities" :key="city.name" cols="12" sm="12" md="4">
-        <v-card class="mx-3 mt-3">
+        <v-sheet color="darken-2" class="mx-3 mt-3" v-if="!city.isLoaded">
+          <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
+        </v-sheet>
+        <v-card class="mx-3 mt-3" v-if="city.isLoaded">
           <v-card-title>{{ city.ruName }}</v-card-title>
 
           <v-row>
-            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
+            <v-col cols="8" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
             <v-col cols="6" sm="3"
-              ><div class="text-h3 text-center">{{ city.temp }}</div></v-col
+              ><div class="text-h3 text-center" style="white-space:nowrap">{{ city.temp }}</div></v-col
             >
           </v-row>
           <v-card-text>
@@ -88,18 +91,117 @@ export default {
   data() {
     return {
       cities: [
-        { name: 'Novosibirsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Tbilisi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Moscow', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Sochi', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Tuapse', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Tomsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Krasnoyarsk', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Sterlitamak', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
-        { name: 'Ufa', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' }
+        {
+          name: 'Novosibirsk',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        {
+          name: 'Tbilisi',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        {
+          name: 'Moscow',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        {
+          name: 'Sochi',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        {
+          name: 'Tuapse',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        {
+          name: 'Tomsk',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        {
+          name: 'Krasnoyarsk',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        {
+          name: 'Sterlitamak',
+          ruName: '',
+          temp: '',
+          description: '',
+          windSpeed: '',
+          windDirection: '',
+          windDirectionIcon: '',
+          img: '',
+          localTime: '',
+          isLoaded: false
+        },
+        { name: 'Ufa', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '', isLoaded: false }
       ],
       showAddNew: false,
-      addingCity: { name: '', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '' },
+      addingCity: {
+        name: '',
+        ruName: '',
+        temp: '',
+        description: '',
+        windSpeed: '',
+        windDirection: '',
+        windDirectionIcon: '',
+        img: '',
+        localTime: '',
+        isLoaded: false
+      },
       isLoading: true,
       dialog: true,
       snackbar: false,
@@ -116,11 +218,12 @@ export default {
       this.isLoading = false;
     },
     loadWeather: async function(cityObj) {
+      let aaa = this;
       let windDirection = '0';
       let weatherCode = 0;
       this.$axios.timeout = 20;
       this.$axios
-        .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`, { validateStatus: false })
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`)
         .then(function(response) {
           if (response.status >= 400 && response.status <= 499) {
             // console.log('no');
@@ -130,7 +233,7 @@ export default {
             cityObj.temp = String(response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp));
             cityObj.ruName = response.data.name;
             cityObj.description = response.data.weather[0].description;
-            cityObj.windSpeed = response.data.wind.speed;
+            cityObj.windSpeed = Math.ceil(response.data.wind.speed);
             cityObj.windDirection = Math.round(Number(response.data.wind.deg), 0);
             windDirection = Number(cityObj.windDirection);
             windDirection >= 23 && windDirection < 68
@@ -170,12 +273,19 @@ export default {
               ? (cityObj.img = 'very-cloudy')
               : (cityObj.img = 'sunny');
             cityObj.img += '.png';
+            cityObj.isLoaded = true;
+
             // console.log(cityObj);
             return true;
           }
         })
-        .catch(function() {
-          return false;
+        .catch(error => {
+          if (error.response.status == 404) {
+            aaa.cities.splice(this.cities.indexOf(cityObj), 1);
+            this.snackbarText = 'Информация о погоде не найдена';
+            this.snackbar = true;
+          }
+          console.error('Error in loadWeather: ' + error);
         });
     },
     addCity: async function() {
@@ -204,7 +314,8 @@ export default {
             windDirection: '',
             windDirectionIcon: '',
             img: '',
-            localTime: ''
+            localTime: '',
+            isLoaded: false
           };
         });
 
