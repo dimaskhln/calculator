@@ -2,10 +2,10 @@
   <v-container>
     <v-card v-for="task in tasks" :color="colorClass(task)" :key="task.name" class="my-3">
       <v-card-title>
-        <v-icon v-if="task.done" class="mr-2" color="green darken-4">mdi-calendar-check-outline</v-icon>
-        <v-icon v-if="!task.done && task.priority == 3" class="mr-2">mdi-calendar-blank-outline</v-icon>
-        <v-icon v-if="!task.done && task.priority == 2" color="" class="mr-2">mdi-calendar-alert</v-icon>
-        <v-icon v-if="!task.done && task.priority == 1" color="red" class="mr-2">mdi-calendar-alert</v-icon>
+        <v-icon v-if="task.isDone" class="mr-2" color="green darken-4">mdi-calendar-check-outline</v-icon>
+        <v-icon v-if="!task.isDone && task.priority == 3" class="mr-2">mdi-calendar-blank-outline</v-icon>
+        <v-icon v-if="!task.isDone && task.priority == 2" color="" class="mr-2">mdi-calendar-alert</v-icon>
+        <v-icon v-if="!task.isDone && task.priority == 1" color="red" class="mr-2">mdi-calendar-alert</v-icon>
         {{ task.name }}
       </v-card-title>
       <v-card-text
@@ -16,10 +16,10 @@
             .join('.')
         }}</v-card-text
       >
-      <v-btn class="ma-3" color="yellow  accent-1" v-if="!task.done" v-on:click="task.done = true"
+      <v-btn class="ma-3" color="yellow  accent-1" v-if="!task.isDone" v-on:click="task.isDone = true"
         ><v-icon color="yellow darken-2">mdi-checkbox-blank-circle-outline</v-icon></v-btn
       >
-      <v-btn class="ma-3" color="green accent-2" v-if="task.done" v-on:click="task.done = false"
+      <v-btn class="ma-3" color="green accent-2" v-if="task.isDone" v-on:click="task.isDone = false"
         ><v-icon color="green darken-4">mdi-check-circle-outline</v-icon></v-btn
       >
       <v-btn class="my-3" color="red accent-1" v-on:click="removeTask(task.id)"><v-icon color="red darken-4">mdi-delete-outline</v-icon></v-btn>
@@ -51,41 +51,40 @@ export default {
   data() {
     return {
       tasks: [
-        {
-          id: 0,
-          name: 'Стать чемпионом школьной лиги КВН',
-          date: '2011-05-16',
-          description: 'И гордиться потом',
-          priority: 1,
-          done: true
-        },
-        {
-          id: 1,
-          name: 'Закончить бакалавриат',
-          date: '2017-07-01',
-          description: 'На факультете прикладной математики и информатики НГТУ',
-          priority: 1,
-          done: true
-        },
-
-        {
-          id: 2,
-          name: 'Закончить магистратуру',
-          date: '2019-07-04',
-          description: 'Тоже на факультете прикладной математики и информатики НГТУ',
-          priority: 1,
-          done: true
-        },
-        {
-          id: 3,
-          name: 'Получить опыт работы над реальными задачами',
-          date: '2021-10-01',
-          description:
-            'Разработать веб-приложение на платформе ASP.NET и мобильное приложение на Android. А также JS-only приложение и другие веб-приложения различной сложности',
-          priority: 1,
-          done: true
-        },
-        { id: 4, name: 'Найти место работы по душе', date: '2021-12-31', description: '', priority: 1, done: false }
+        // {
+        //   id: 0,
+        //   name: 'Стать чемпионом школьной лиги КВН',
+        //   date: '2011-05-16',
+        //   description: 'И гордиться потом',
+        //   priority: 1,
+        //   isDone: true
+        // },
+        // {
+        //   id: 1,
+        //   name: 'Закончить бакалавриат',
+        //   date: '2017-07-01',
+        //   description: 'На факультете прикладной математики и информатики НГТУ',
+        //   priority: 1,
+        //   isDone: true
+        // },
+        // {
+        //   id: 2,
+        //   name: 'Закончить магистратуру',
+        //   date: '2019-07-04',
+        //   description: 'Тоже на факультете прикладной математики и информатики НГТУ',
+        //   priority: 1,
+        //   isDone: true
+        // },
+        // {
+        //   id: 3,
+        //   name: 'Получить опыт работы над реальными задачами',
+        //   date: '2021-10-01',
+        //   description:
+        //     'Разработать веб-приложение на платформе ASP.NET и мобильное приложение на Android. А также JS-only приложение и другие веб-приложения различной сложности',
+        //   priority: 1,
+        //   isDone: true
+        // },
+        // { id: 4, name: 'Найти место работы по душе', date: '2021-12-31', description: '', priority: 1, isDone: false }
       ],
       showAddNew: false,
       addingName: '',
@@ -105,7 +104,7 @@ export default {
   },
   methods: {
     colorClass(task) {
-      if (task.done) {
+      if (task.isDone) {
         return 'green lighten-5';
       }
       if (
@@ -149,6 +148,22 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
     document.querySelector('.v-application--wrap').classList.add('todo-bg');
+    const db = this.$firebase.firestore();
+    // var batch = db.batch();
+    // this.tasks.forEach(doc => {
+    //   var docRef = db.collection('ToDo').doc(); //automatically generate unique id
+    //   batch.set(docRef, doc);
+    // });
+    // batch.commit();
+    let tasks = [];
+    db.collection('ToDo')
+      .get()
+      .then(snap => {
+        snap.forEach(function(doc) {
+          tasks.push({ [doc.id]: doc.data() });
+        });
+        this.tasks = tasks;
+      });
   },
   computed: {}
 };
