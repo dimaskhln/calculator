@@ -16,18 +16,18 @@
             .join('.')
         }}</v-card-text
       >
-      <v-btn class="ma-3" color="yellow  accent-1" v-if="!task.isDone" v-on:click="task.isDone = true"
+      <v-btn class="ma-3" color="yellow  accent-1" v-if="!task.isDone" v-on:click="markDone(task)"
         ><v-icon color="yellow darken-2">mdi-checkbox-blank-circle-outline</v-icon></v-btn
       >
-      <v-btn class="ma-3" color="green accent-2" v-if="task.isDone" v-on:click="task.isDone = false"
+      <v-btn class="ma-3" color="green accent-2" v-if="task.isDone" v-on:click="markDone(task)"
         ><v-icon color="green darken-4">mdi-check-circle-outline</v-icon></v-btn
       >
-      <v-btn class="my-3" color="red accent-1" v-on:click="removeTask(task.id)"><v-icon color="red darken-4">mdi-delete-outline</v-icon></v-btn>
+      <v-btn class="my-3" color="red accent-1" v-on:click="removeTask(task.docId)"><v-icon color="red darken-4">mdi-delete-outline</v-icon></v-btn>
     </v-card>
-    <v-card v-if="!showAddNew" v-on:click="showAddNew = !showAddNew" class="ma-12"
+    <v-card v-if="!showAdd" v-on:click="showAdd = true" class="ma-12"
       ><v-card-title>Добавить <v-icon>mdi-plus</v-icon></v-card-title></v-card
     >
-    <v-card v-if="showAddNew" class="my-3">
+    <v-card v-if="showAdd" class="my-3">
       <v-card-title>Добавление события</v-card-title>
       <v-row justify="center"
         ><v-col cols="12" sm="8">
@@ -36,11 +36,11 @@
           <v-select v-model="addingPriority" :items="priorities" class="ml-4" label="Приоритет" outlined></v-select>
         </v-col>
         <v-col cols="12" sm="4"
-          ><v-row justify="center"> <v-date-picker v-model="addingDate" :allowed-dates="allowedDates" class="ma-4"></v-date-picker> </v-row></v-col
+          ><v-row justify="center"> <v-date-picker v-model="addingDate" class="ma-4"></v-date-picker> </v-row></v-col
       ></v-row>
       <v-row>
         <v-btn class="ml-7 mr-3 mb-3" color="green accent-2" v-on:click="addTask()"><v-icon>mdi-plus</v-icon></v-btn>
-        <v-btn class="mb-3" color="red accent-2" v-on:click="showAddNew = !showAddNew"><v-icon>mdi-delete-outline</v-icon></v-btn>
+        <v-btn class="mb-3" color="red accent-2" v-on:click="showAdd = false"><v-icon>mdi-close</v-icon></v-btn>
       </v-row>
     </v-card>
   </v-container>
@@ -50,43 +50,8 @@
 export default {
   data() {
     return {
-      tasks: [
-        // {
-        //   id: 0,
-        //   name: 'Стать чемпионом школьной лиги КВН',
-        //   date: '2011-05-16',
-        //   description: 'И гордиться потом',
-        //   priority: 1,
-        //   isDone: true
-        // },
-        // {
-        //   id: 1,
-        //   name: 'Закончить бакалавриат',
-        //   date: '2017-07-01',
-        //   description: 'На факультете прикладной математики и информатики НГТУ',
-        //   priority: 1,
-        //   isDone: true
-        // },
-        // {
-        //   id: 2,
-        //   name: 'Закончить магистратуру',
-        //   date: '2019-07-04',
-        //   description: 'Тоже на факультете прикладной математики и информатики НГТУ',
-        //   priority: 1,
-        //   isDone: true
-        // },
-        // {
-        //   id: 3,
-        //   name: 'Получить опыт работы над реальными задачами',
-        //   date: '2021-10-01',
-        //   description:
-        //     'Разработать веб-приложение на платформе ASP.NET и мобильное приложение на Android. А также JS-only приложение и другие веб-приложения различной сложности',
-        //   priority: 1,
-        //   isDone: true
-        // },
-        // { id: 4, name: 'Найти место работы по душе', date: '2021-12-31', description: '', priority: 1, isDone: false }
-      ],
-      showAddNew: false,
+      tasks: [],
+      showAdd: false,
       addingName: '',
       addingDescription: '',
       addingDate: today
@@ -120,27 +85,67 @@ export default {
         return 'white';
       }
     },
-    removeTask: function(id) {
-      this.tasks = this.tasks.filter(task => task.id != id);
+    markDone: function(task) {
+      // console .log(task.isDone)
+      // switch (task.isDone) {
+      //   case true:
+      //     task.isDone = false;
+      //     break;
+      //   case false:
+      //     task.isDone = true;
+      //     break;
+      // }
+      const db = this.$firebase.firestore();
+      task.isDone = !task.isDone;
+      db.collection('ToDo')
+        .doc(task.docId)
+        .set(task);
+    },
+    removeTask: function(docId) {
+      const db = this.$firebase.firestore();
+      db.collection('ToDo')
+        .doc(docId)
+        .delete();
+      // currentRef.remove();
+      this.tasks = this.tasks.filter(task => task.docId != docId);
     },
     addTask() {
-      let maxId = Math.max.apply(
-        Math,
-        this.tasks.map(function(o) {
-          return o.id;
-        })
-      );
-      this.tasks.push({
-        id: maxId + 1,
-        name: this.addingName,
-        date: this.addingDate,
-        description: this.addingDescription,
-        priority: this.addingPriority,
-        done: false
-      });
-      this.addingName = '';
-      this.addingDescription = '';
-      this.showAddNew = !this.showAddNew;
+      if (this.tasks.length >= 30) {
+        this.snackbarText = 'Достигнуто максимальное количество задач';
+        this.snackbar = true;
+      } else {
+        let maxId = Math.max.apply(
+          Math,
+          this.tasks.map(function(o) {
+            return o.id;
+          })
+        );
+        const db = this.$firebase.firestore();
+        var batch = db.batch();
+        let doc = db.collection('ToDo').doc();
+        batch.set(doc, {
+          id: maxId + 1,
+          name: this.addingName,
+          date: this.addingDate,
+          description: this.addingDescription,
+          priority: this.addingPriority,
+          done: false
+        });
+        batch.commit();
+        this.tasks.push({
+          id: maxId + 1,
+          docId: doc.id,
+          name: this.addingName,
+          date: this.addingDate,
+          description: this.addingDescription,
+          priority: this.addingPriority,
+          done: false
+        });
+        this.addingName = '';
+        this.addingDescription = '';
+        this.addingPriority = 3;
+        this.showAdd = false;
+      }
     }
   },
   mounted() {
@@ -160,7 +165,21 @@ export default {
       .get()
       .then(snap => {
         snap.forEach(function(doc) {
-          tasks.push({ [doc.id]: doc.data() });
+          let task = doc.data();
+          task.docId = doc.id;
+          tasks.push(task);
+        });
+        tasks.sort(function(a, b) {
+          var nameA = a.id;
+          var nameB = b.id;
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          // names must be equal
+          return 0;
         });
         this.tasks = tasks;
       });
@@ -173,8 +192,15 @@ TODO:
 Календарь задач
 */
 const timeElapsed = Date.now();
-var date = new Date();
-var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
-console.log(date.toLocaleDateString('pt-BR', options));
+// var date = new Date();
+// var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
 const today = new Date(timeElapsed);
 </script>
+
+// { // id: 0, // name: 'Стать чемпионом школьной лиги КВН', // date: '2011-05-16', // description: 'И гордиться потом', // priority: 1, // isDone: true // },
+// { // id: 1, // name: 'Закончить бакалавриат', // date: '2017-07-01', // description: 'На факультете прикладной математики и информатики НГТУ', // priority:
+1, // isDone: true // }, // { // id: 2, // name: 'Закончить магистратуру', // date: '2019-07-04', // description: 'Тоже на факультете прикладной математики и
+информатики НГТУ', // priority: 1, // isDone: true // }, // { // id: 3, // name: 'Получить опыт работы над реальными задачами', // date: '2021-10-01', //
+description: // 'Разработать веб-приложение на платформе ASP.NET и мобильное приложение на Android. А также JS-only приложение и другие веб-приложения различной
+сложности', // priority: 1, // isDone: true // }, // { id: 4, name: 'Найти место работы по душе', date: '2021-12-31', description: '', priority: 1, isDone:
+false }
