@@ -27,7 +27,7 @@
             </v-row>
           </v-card-text>
 
-          <v-btn class="ml-3 mb-3" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.name)"> Удалить</v-btn>
+          <v-btn class="ml-3 mb-3" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.docId)"> Удалить</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -90,105 +90,7 @@ const apiKey = '5d498cca2f0e7342e2601295325ff976';
 export default {
   data() {
     return {
-      cities: [
-        {
-          name: 'Novosibirsk',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        {
-          name: 'Tbilisi',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        {
-          name: 'Moscow',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        {
-          name: 'Sochi',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        {
-          name: 'Tuapse',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        {
-          name: 'Tomsk',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        {
-          name: 'Krasnoyarsk',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        {
-          name: 'Sterlitamak',
-          ruName: '',
-          temp: '',
-          description: '',
-          windSpeed: '',
-          windDirection: '',
-          windDirectionIcon: '',
-          img: '',
-          localTime: '',
-          isLoaded: false
-        },
-        { name: 'Ufa', ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '', isLoaded: false }
-      ],
+      cities: [],
       showAddNew: false,
       addingCity: {
         name: '',
@@ -289,48 +191,63 @@ export default {
         });
     },
     addCity: async function() {
-      var aaa = this;
-      if (!this.cities.some(c => c.name.toLowerCase() === this.addingCity.name.toLowerCase() || c.ruName === this.addingCity.name)) {
-        this.showAddNew = false;
-        let promise = new Promise(function(resolve) {
-          // let r = aaa.loadWeather(aaa.addingCity);
-          // console.log(r);
-          if (aaa.loadWeather(aaa.addingCity)) {
-            resolve('done');
-          } else {
-            resolve('error');
-          }
-        });
-
-        promise.then(function(response) {
-          console.log(response);
-          aaa.cities.push(aaa.addingCity);
-          aaa.addingCity = {
-            name: '',
-            ruName: '',
-            temp: '',
-            description: '',
-            windSpeed: '',
-            windDirection: '',
-            windDirectionIcon: '',
-            img: '',
-            localTime: '',
-            isLoaded: false
-          };
-        });
-
-        promise.catch(function(response) {
-          console.log(response);
-          aaa.snackbarText = 'Информации о данном городе не существует';
-          aaa.snackbar = true;
-        });
-      } else {
-        this.snackbarText = 'Информация о погоде в данном городе уже есть';
+      if (this.cities.length >= 30) {
+        this.snackbarText = 'Достигнуто максимальное количество городов';
         this.snackbar = true;
+      } else {
+        var aaa = this;
+        if (!this.cities.some(c => c.name.toLowerCase() === this.addingCity.name.toLowerCase() || c.ruName === this.addingCity.name)) {
+          this.showAddNew = false;
+          let promise = new Promise(function(resolve) {
+            // let r = aaa.loadWeather(aaa.addingCity);
+            // console.log(r);
+            if (aaa.loadWeather(aaa.addingCity)) {
+              resolve('done');
+            } else {
+              resolve('error');
+            }
+          });
+
+          promise.then(function(response) {
+            console.log(response);
+            const db = aaa.$firebase.firestore();
+            var batch = db.batch();
+            let doc = db.collection('Weather').doc();
+            aaa.addingCity.docId = doc;
+            batch.set(doc, aaa.addingCity);
+            batch.commit();
+            aaa.cities.push(aaa.addingCity);
+            aaa.addingCity = {
+              name: '',
+              ruName: '',
+              temp: '',
+              description: '',
+              windSpeed: '',
+              windDirection: '',
+              windDirectionIcon: '',
+              img: '',
+              localTime: '',
+              isLoaded: false
+            };
+          });
+
+          promise.catch(function(response) {
+            console.log(response);
+            aaa.snackbarText = 'Информации о данном городе не существует';
+            aaa.snackbar = true;
+          });
+        } else {
+          this.snackbarText = 'Информация о погоде в данном городе уже есть';
+          this.snackbar = true;
+        }
       }
     },
-    deleteCity: function(name) {
-      this.cities = this.cities.filter(city => city.name != name);
+    deleteCity: function(docId) {
+      const db = this.$firebase.firestore();
+      db.collection('Weather')
+        .doc(docId)
+        .delete();
+      this.cities = this.cities.filter(city => city.docId != docId);
       this.snackbarText = 'Информация о городе удалена';
       this.snackbar = true;
     }
@@ -340,9 +257,54 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.add('weather-bg');
+
+    const db = this.$firebase.firestore();
+    let cities = [];
+    db.collection('Weather')
+      .get()
+      .then(snap => {
+        snap.forEach(function(doc) {
+          let city = doc.data();
+          city.docId = doc.id;
+          city.ruName = '';
+          city.temp = '';
+          city.description = '';
+          city.windSpeed = '';
+          city.windDirection = '';
+          city.windDirectionIcon = '';
+          city.img = '';
+          city.localTime = '';
+          city.isLoaded = false;
+          cities.push(city);
+        });
+        cities.sort(function(a, b) {
+          var nameA = a.name.toLowerCase();
+          var nameB = b.name.toLowerCase();
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          // names must be equal
+          return 0;
+        });
+        this.cities = cities;
+        this.getWeather();
+      });
   },
-  created() {
-    this.getWeather();
-  }
+  created() {}
 };
 </script>
+
+// { // name: 'Novosibirsk', // ruName: '', // temp: '', // description: '', // windSpeed: '', // windDirection: '', // windDirectionIcon: '', // img: '', //
+localTime: '', // isLoaded: false // }, // { // name: 'Tbilisi', // ruName: '', // temp: '', // description: '', // windSpeed: '', // windDirection: '', //
+windDirectionIcon: '', // img: '', // localTime: '', // isLoaded: false // }, // { // name: 'Moscow', // ruName: '', // temp: '', // description: '', //
+windSpeed: '', // windDirection: '', // windDirectionIcon: '', // img: '', // localTime: '', // isLoaded: false // }, // { // name: 'Sochi', // ruName: '', //
+temp: '', // description: '', // windSpeed: '', // windDirection: '', // windDirectionIcon: '', // img: '', // localTime: '', // isLoaded: false // }, // { //
+name: 'Tuapse', // ruName: '', // temp: '', // description: '', // windSpeed: '', // windDirection: '', // windDirectionIcon: '', // img: '', // localTime: '',
+// isLoaded: false // }, // { // name: 'Tomsk', // ruName: '', // temp: '', // description: '', // windSpeed: '', // windDirection: '', // windDirectionIcon:
+'', // img: '', // localTime: '', // isLoaded: false // }, // { // name: 'Krasnoyarsk', // ruName: '', // temp: '', // description: '', // windSpeed: '', //
+windDirection: '', // windDirectionIcon: '', // img: '', // localTime: '', // isLoaded: false // }, // { // name: 'Sterlitamak', // ruName: '', // temp: '', //
+description: '', // windSpeed: '', // windDirection: '', // windDirectionIcon: '', // img: '', // localTime: '', // isLoaded: false // }, // { name: 'Ufa',
+ruName: '', temp: '', description: '', windSpeed: '', windDirection: '', windDirectionIcon: '', img: '', localTime: '', isLoaded: false }
