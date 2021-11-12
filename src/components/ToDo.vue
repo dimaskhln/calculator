@@ -153,6 +153,7 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
     document.querySelector('.v-application--wrap').classList.add('todo-bg');
+    document.title = 'Дмитрий Халин | Список дел';
     const db = this.$firebase.firestore();
     // var batch = db.batch();
     // this.tasks.forEach(doc => {

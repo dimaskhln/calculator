@@ -257,6 +257,7 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.add('weather-bg');
+    document.title = 'Дмитрий Халин | Погода';
 
     const db = this.$firebase.firestore();
     let cities = [];
