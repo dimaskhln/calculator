@@ -102,6 +102,7 @@ export default {
     document.querySelector('.v-application--wrap').classList.add('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
+    document.title = 'Дмитрий Халин | Системы счисления';
   }
 };
 </script>
