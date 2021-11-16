@@ -12,9 +12,9 @@
           <v-card-title>{{ city.ruName }}</v-card-title>
 
           <v-row>
-            <v-col cols="8" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
+            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
             <v-col cols="6" sm="3"
-              ><div class="text-h3 text-center" style="white-space:nowrap">{{ city.temp }}</div></v-col
+              ><div class="text-h2 text-center" style="white-space:nowrap">{{ city.temp }}</div></v-col
             >
           </v-row>
           <v-card-text>
@@ -48,7 +48,7 @@
         </v-col>
       </v-footer></v-row
     >
-    <v-dialog v-model="dialog" max-width="500">
+    <v-dialog v-if="showDialog" v-model="dialog" max-width="500">
       <v-card>
         <v-card-title class="text-h5">
           Это не просто погодный виджет!
@@ -131,7 +131,6 @@ export default {
             // console.log('no');
             return false;
           } else {
-            console.log('yes');
             cityObj.temp = String(response.data.main.temp > 0 ? '+' + Math.round(response.data.main.temp) : Math.round(response.data.main.temp));
             cityObj.ruName = response.data.name;
             cityObj.description = response.data.weather[0].description;
@@ -259,6 +258,8 @@ export default {
     document.querySelector('.v-application--wrap').classList.add('weather-bg');
     document.title = 'Дмитрий Халин | Погода';
 
+    this.$weatherLoaded = true;
+
     const db = this.$firebase.firestore();
     let cities = [];
     db.collection('Weather')
@@ -294,7 +295,19 @@ export default {
         this.getWeather();
       });
   },
-  created() {}
+  beforeCreate() {
+    console.log(this.$weatherLoaded);
+    if (this.$weatherLoaded.value) {
+      console.log('if');
+      this.showDialog = false;
+      console.log(this.$weatherLoaded.value);
+    } else {
+      console.log('else');
+      this.showDialog = true;
+      this.$weatherLoaded.value = true;
+      console.log(this.$weatherLoaded.value);
+    }
+  }
 };
 </script>
 

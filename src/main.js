@@ -31,6 +31,12 @@ Vue.config.productionTip = false;
 
 Vue.use(VueAxios);
 
+// Vue.prototype.$weatherLoaded = false;
+// Object.defineProperty(Vue.prototype, 'weatherLoaded', { value: false });
+
+Vue.prototype.$weatherLoaded = { value: false };
+Vue.prototype.$pageLoaded = { value: false };
+
 new Vue({
   vuetify,
   router,
