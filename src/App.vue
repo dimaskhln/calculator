@@ -12,6 +12,7 @@
 
 <script>
 //import Footer from './components/Footer.vue';
+
 import TabNavigator from './components/TabNavigator';
 export default {
   name: 'App',
