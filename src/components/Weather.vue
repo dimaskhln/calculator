@@ -87,7 +87,8 @@
 </style>
 
 <script>
-const apiKey = '5d498cca2f0e7342e2601295325ff976';
+import { keys } from '../apiKeys';
+const apiKey = keys.OPEN_WEATHER;
 
 export default {
   data() {
