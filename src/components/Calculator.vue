@@ -32,7 +32,7 @@
       <v-row align="center" justify="space-around" class="mb-5">
         <v-btn color="teal lighten-4" elevation="5" v-on:click="write('0')">0</v-btn>
         <v-btn color="teal lighten-4" elevation="5" v-on:click="write('.')">.</v-btn>
-        <v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:cllick="remember('multiply')"><v-icon>mdi-multiplication</v-icon></v-btn>
+        <v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('multiply')"><v-icon>mdi-multiplication</v-icon></v-btn>
         <v-btn color="teal darken-4 teal--text text--lighten-5" elevation="5" v-on:click="remember('divide')"><v-icon>mdi-division</v-icon></v-btn>
       </v-row>
       <v-row align="center" justify="space-around" class="mb-3">
@@ -85,6 +85,7 @@ export default {
       this.isEqualPressed = false;
     },
     remember: function(act) {
+      console.log(act);
       this.done = false;
       if (act === 'sqrt') {
         this.value = Math.sqrt(this.value);

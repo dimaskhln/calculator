@@ -46,7 +46,7 @@
         </v-card></v-col
       >
     </v-row>
-    <v-row class="mb-9"
+    <v-row
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
           <v-card-title>Что я уже умею</v-card-title>
@@ -61,31 +61,34 @@
         </v-card></v-col
       >
     </v-row>
-
-    <v-footer width="100%" class="mt-5" absolute>
-      <v-row>
-        <v-col cols="12" sm="12" md="6" class="text-center"
-          >Свяжитесь со мной: <br />
-          <a target="_blank" href="https://vk.com/thisisdimas"><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/vk.png"></v-img></a>
-          <a target="_blank" href="https://t.me/dimaskhln"
-            ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/telegram.png"></v-img
-          ></a>
-          <a target="_blank" href="https://instagram.com/this.is.dimas"
-            ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/instagram.png"></v-img
-          ></a>
-          <br />
-          <v-icon class=" d-inline-flex">mdi-at</v-icon
-          ><a
-            class=" d-inline-flex"
-            href="mailto:me@dimaskhln.ru?bcc=dm_ser_k@mail.ru&?subject=%D0%A1%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0-%D1%80%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5"
-            >me@dimaskhln.ru</a
-          ></v-col
-        ><v-col cols="12" sm="12" md="6" class="text-center">
-          Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from
-          <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></v-col
-        >
-      </v-row>
-    </v-footer>
+    <v-row>
+      <v-footer width="100%" absolute>
+        <v-row>
+          <v-col cols="12" sm="12" md="6" class="text-center"
+            >Свяжитесь со мной: <br />
+            <a target="_blank" href="https://vk.com/thisisdimas"
+              ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/vk_128.png"></v-img
+            ></a>
+            <a target="_blank" href="https://t.me/dimaskhln"
+              ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/telegram_128.png"></v-img
+            ></a>
+            <a target="_blank" href="https://instagram.com/this.is.dimas"
+              ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/instagram_128.png"></v-img
+            ></a>
+            <br />
+            <v-icon class=" d-inline-flex">mdi-at</v-icon
+            ><a
+              class=" d-inline-flex"
+              href="mailto:me@dimaskhln.ru?bcc=dm_ser_k@mail.ru&?subject=%D0%A1%D0%BE%D0%BE%D0%B1%D1%89%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%81%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0-%D1%80%D0%B5%D0%B7%D1%8E%D0%BC%D0%B5"
+              >me@dimaskhln.ru</a
+            ></v-col
+          ><v-col cols="12" sm="12" md="6" class="text-center">
+            Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from
+            <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></v-col
+          >
+        </v-row>
+      </v-footer></v-row
+    >
 
     <v-dialog v-if="showDialog" v-model="dialog" max-width="500">
       <v-card>
