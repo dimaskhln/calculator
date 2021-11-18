@@ -27,7 +27,9 @@
             </v-row>
           </v-card-text>
 
-          <v-btn class="ml-3 mb-3" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.docId)"> Удалить</v-btn>
+          <v-btn class="ml-3 mb-3" v-if="!protectedCities.includes(city.name)" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.docId)">
+            Удалить</v-btn
+          >
         </v-card>
       </v-col>
     </v-row>
@@ -108,7 +110,8 @@ export default {
       dialog: true,
       snackbar: false,
       snackbarText: '',
-      snackbarTimeout: 3000
+      snackbarTimeout: 3000,
+      protectedCities: ['Novosibirsk', 'Tbilisi', 'Moscow', 'Sochi', 'Tuapse', 'Tomsk', 'Krasnoyarsk', 'Sterlitamak', 'Ufa']
     };
   },
   methods: {
