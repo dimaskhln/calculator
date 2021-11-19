@@ -1,8 +1,9 @@
 import Vue from 'vue';
-import VueAxios from './plugins/axios';
-import App from './App.vue';
-import vuetify from './plugins/vuetify';
 import router from './router';
+import App from './App.vue';
+import VueAxios from './plugins/axios';
+import vuetify from './plugins/vuetify';
+import i18n from './plugins/i18n';
 
 // Import the functions you need from the SDKs you need
 import firebase from 'firebase/compat/app';
@@ -43,5 +44,6 @@ Vue.prototype.$pageLoaded = { value: false };
 new Vue({
   vuetify,
   router,
+  i18n,
   render: h => h(App)
 }).$mount('#app');
