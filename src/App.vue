@@ -14,6 +14,7 @@
 //import Footer from './components/Footer.vue';
 
 import TabNavigator from './components/TabNavigator';
+import i18n from '@/plugins/i18n';
 export default {
   name: 'App',
   components: {
@@ -22,6 +23,11 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    changeLocale(locale) {
+      i18n.locale = locale;
+    }
   }
 };
 </script>
