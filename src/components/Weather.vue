@@ -23,20 +23,22 @@
             </v-row>
 
             <v-row align="center" class="mx-0">
-              Ветер <v-icon>mdi-{{ city.windDirectionIcon }}</v-icon> {{ city.windDirection }} {{ city.windSpeed }} м/с
+              {{ $t('WEATHER_wind') }} <v-icon>mdi-{{ city.windDirectionIcon }}</v-icon> {{ city.windDirection }} {{ city.windSpeed }} м/с
             </v-row>
           </v-card-text>
 
           <v-btn class="ml-3 mb-3" v-if="!protectedCities.includes(city.name)" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.docId)">
-            Удалить</v-btn
+            {{ $t('WEATHER_deleteButton') }}</v-btn
           >
         </v-card>
       </v-col>
     </v-row>
     <v-row
-      ><v-btn class="mb-6 mt-3 mx-auto" color="teal accent-3" v-if="!showAddNew" v-on:click="showAddNew = true"><v-icon>mdi-plus</v-icon> Добавить город</v-btn>
+      ><v-btn class="mb-6 mt-3 mx-auto" color="teal accent-3" v-if="!showAddNew" v-on:click="showAddNew = true"
+        ><v-icon>mdi-plus</v-icon> {{ $t('WEATHER_addCity') }}</v-btn
+      >
       <v-card v-if="showAddNew" class="mx-auto my-12" min-width="50%" max-width="50%">
-        <v-text-field v-model="addingCity.name" class="mt-3 mx-3" label="Название города" outlined></v-text-field>
+        <v-text-field v-model="addingCity.name" class="mt-3 mx-3" :label="$t('WEATHER_cityNamePlaceholder')" outlined></v-text-field>
         <v-row class="mx-3 pb-6">
           <v-btn class=" mx-1" color="green accent-3" v-on:click="addCity">Добавить</v-btn>
           <v-btn class=" mx-1" color="red accent-3" v-on:click="showAddNew = false">Отмена</v-btn></v-row
@@ -46,18 +48,18 @@
     <v-row
       ><v-footer width="100%">
         <v-col class="text-center" color="teal lighten-4" height="20" cols="12">
-          Информация о погоде - <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
+          {{ $t('WEATHER_footer') }} - <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
         </v-col>
       </v-footer></v-row
     >
     <v-dialog v-if="showDialog" v-model="dialog" max-width="500">
       <v-card>
         <v-card-title class="text-h5">
-          Это не просто погодный виджет!
+          {{ $t('WEATHER_dialogHead') }}
         </v-card-title>
 
         <v-card-text>
-          Да, погоду здесь узнать можно, но так же можно узнать в каких городах я уже побывал!
+          {{ $t('WEATHER_dialogBody') }}
         </v-card-text>
 
         <v-card-actions>
@@ -105,7 +107,8 @@ export default {
         windDirectionIcon: '',
         img: '',
         localTime: '',
-        isLoaded: false
+        isLoaded: false,
+        loacale: 'ru'
       },
       isLoading: true,
       dialog: true,
@@ -117,6 +120,8 @@ export default {
   },
   methods: {
     getWeather: function() {
+      console.log(this.$i18n.locale);
+
       this.isLoading = true;
       this.cities.forEach(cityObj => {
         this.loadWeather(cityObj);
