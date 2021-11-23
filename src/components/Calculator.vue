@@ -213,7 +213,7 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.add('calculator-bg');
-    document.title = 'Дмитрий Халин | Калькулятор';
+    document.title = this.$t('TITLE_calculator');
   }
 };
 </script>

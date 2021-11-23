@@ -10,6 +10,11 @@ export const messages = {
     HEAD_todo: 'Список дел',
     HEAD_about: 'Обо мне',
 
+    TITLE_calculator: 'Дмитрий Халин | Калькулятор',
+    TITLE_weather: 'Дмитрий Халин | Погода',
+    TITLE_todo: 'Дмитрий Халин | Список дел',
+    TITLE_about: 'Дмитрий Халин | Обо мне',
+
     CALC_poorSalary: 'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз',
     CALC_lowSalary: 'Близко к моей желаемой зарплате, но хочется большего',
     CALC_okSalary: 'Да, такая зарплата меня устроит (на начальном этапе)',
@@ -18,12 +23,14 @@ export const messages = {
 
     WEATHER_dialogHead: 'Это не просто погодный виджет!',
     WEATHER_dialogBody: 'Да, погоду здесь узнать можно, но так же можно узнать в каких городах я уже побывал!',
+    WEATHER_dialogOkButton: 'Понятно',
+    WEATHER_snackboxCloseButton: 'Закрыть',
     WEATHER_wind: 'Ветер',
     WEATHER_addCity: 'Добавить город',
     WEATHER_cityNamePlaceholder: 'Название города',
     WEATHER_cityAddButton: 'Добавить',
     WEATHER_cityCancelButton: 'Отмена',
-    WEATHER_footer: 'Информация о погоде',
+    WEATHER_footer: 'Информация о погоде -',
     WEATHER_deleteButton: 'Удалить',
 
     TODO_addButton: 'Добавить',
@@ -65,6 +72,11 @@ export const messages = {
     HEAD_todo: 'ToDo',
     HEAD_about: 'About me',
 
+    TITLE_calculator: 'Dmitriy Khalin | Calculator',
+    TITLE_weather: 'Dmitriy Khalin | Weather',
+    TITLE_todo: 'Dmitriy Khalin | ToDo',
+    TITLE_about: 'Dmitriy Khalin | About me',
+
     CALC_lowSalary: "That's couldn't be my salary. Please try again.",
     CALC_okSalary: '',
     CALC_highSalary: '',
@@ -72,6 +84,8 @@ export const messages = {
 
     WEATHER_dialogHead: 'This is not just a weather widget!',
     WEATHER_dialogBody: "Yeah, you can check the weather here, but also you can see in which cities I've already been.",
+    WEATHER_dialogOkButton: 'Got it!',
+    WEATHER_snackboxCloseButton: 'Close',
     WEATHER_wind: 'wind',
     WEATHER_addCity: 'Add city',
     WEATHER_cityNamePlaceholder: 'City name',
@@ -80,7 +94,8 @@ export const messages = {
     WEATHER_footer: 'Weather info from',
     WEATHER_deleteButton: 'Delete',
 
-    TODO_addHead: 'Add ',
+    TODO_addButton: 'Add',
+    TODO_addHead: 'Adding event',
     TODO_namePlaceholder: 'Name',
     TODO_descriptionPlaceholder: 'Description',
     TODO_priorityPlaceholder: 'Priority',
