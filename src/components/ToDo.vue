@@ -25,15 +25,15 @@
       <v-btn class="my-3" color="red accent-1" v-on:click="removeTask(task.docId)"><v-icon color="red darken-4">mdi-delete-outline</v-icon></v-btn>
     </v-card>
     <v-card v-if="!showAdd" v-on:click="showAdd = true" class="ma-12"
-      ><v-card-title>Добавить <v-icon>mdi-plus</v-icon></v-card-title></v-card
+      ><v-card-title>{{ $t('TODO_addButton') }} <v-icon>mdi-plus</v-icon></v-card-title></v-card
     >
     <v-card v-if="showAdd" class="my-3">
-      <v-card-title>Добавление события</v-card-title>
+      <v-card-title>{{ $t('TODO_addHead') }}</v-card-title>
       <v-row justify="center"
         ><v-col cols="12" sm="8">
-          <v-text-field v-model="addingName" class="ml-4" label="Наименование" outlined></v-text-field>
-          <v-text-field v-model="addingDescription" class="ml-4" label="Описание" outlined></v-text-field>
-          <v-select v-model="addingPriority" :items="priorities" class="ml-4" label="Приоритет" outlined></v-select>
+          <v-text-field v-model="addingName" class="ml-4" :label="$t('TODO_namePlaceholder')" outlined></v-text-field>
+          <v-text-field v-model="addingDescription" class="ml-4" :label="$t('TODO_descriptionPlaceholder')" outlined></v-text-field>
+          <v-select :v-model="addingPriority" :items="priorities" class="ml-4" :label="$t('TODO_priorityPlaceholder')" outlined></v-select>
         </v-col>
         <v-col cols="12" sm="4"
           ><v-row justify="center"> <v-date-picker v-model="addingDate" class="ma-4"></v-date-picker> </v-row></v-col
@@ -61,9 +61,9 @@ export default {
         .join('-'),
       addingPriority: 3,
       priorities: [
-        { text: 'Очень важное', value: 1 },
-        { text: 'Важное', value: 2 },
-        { text: 'Обычное', value: 3 }
+        { text: this.$t('TODO_prioritySuper'), value: 1 },
+        { text: this.$t('TODO_priorityHigh'), value: 2 },
+        { text: this.$t('TODO_priorityNormal'), value: 3 }
       ]
     };
   },
@@ -153,7 +153,7 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
     document.querySelector('.v-application--wrap').classList.add('todo-bg');
-    document.title = 'Дмитрий Халин | Список дел';
+    document.title = this.$t('TITLE_todo');
     const db = this.$firebase.firestore();
     // var batch = db.batch();
     // this.tasks.forEach(doc => {

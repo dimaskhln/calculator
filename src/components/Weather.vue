@@ -9,10 +9,10 @@
           <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
         </v-sheet>
         <v-card class="mx-3 mt-3" v-if="city.isLoaded">
-          <v-card-title>{{ city.ruName }}</v-card-title>
+          <v-card-title>{{ $i18n.locale == 'ru' ? city.ruName : city.name }}</v-card-title>
 
           <v-row>
-            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="100%" :src="'/images/weather/' + city.img"/></v-col>
+            <v-col cols="6" sm="3"><v-img class="ml-3" max-width="200" :src="'/images/weather/' + city.img"/></v-col>
             <v-col cols="6" sm="3"
               ><div class="text-h2 text-center" style="white-space:nowrap">{{ city.temp }}</div></v-col
             >
@@ -40,15 +40,15 @@
       <v-card v-if="showAddNew" class="mx-auto my-12" min-width="50%" max-width="50%">
         <v-text-field v-model="addingCity.name" class="mt-3 mx-3" :label="$t('WEATHER_cityNamePlaceholder')" outlined></v-text-field>
         <v-row class="mx-3 pb-6">
-          <v-btn class=" mx-1" color="green accent-3" v-on:click="addCity">Добавить</v-btn>
-          <v-btn class=" mx-1" color="red accent-3" v-on:click="showAddNew = false">Отмена</v-btn></v-row
+          <v-btn class=" mx-1" color="green accent-3" v-on:click="addCity">{{ $t('WEATHER_cityAddButton') }}</v-btn>
+          <v-btn class=" mx-1" color="red accent-3" v-on:click="showAddNew = false">{{ $t('WEATHER_cityCancelButton') }}</v-btn></v-row
         >
       </v-card></v-row
     >
     <v-row
       ><v-footer width="100%">
         <v-col class="text-center" color="teal lighten-4" height="20" cols="12">
-          {{ $t('WEATHER_footer') }} - <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
+          {{ $t('WEATHER_footer') }} <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
         </v-col>
       </v-footer></v-row
     >
@@ -65,7 +65,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialog = false">
-            Понятно
+            {{ $t('WEATHER_dialogOkButton') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -75,7 +75,7 @@
 
       <template v-slot:action="{ attrs }">
         <v-btn color="blue" text v-bind="attrs" @click="snackbar = false">
-          Закрыть
+          {{ $t('WEATHER_snackboxCloseButton') }}
         </v-btn>
       </template>
     </v-snackbar>
@@ -108,7 +108,7 @@ export default {
         img: '',
         localTime: '',
         isLoaded: false,
-        loacale: 'ru'
+        locale: 'ru'
       },
       isLoading: true,
       dialog: true,
@@ -129,12 +129,13 @@ export default {
       this.isLoading = false;
     },
     loadWeather: async function(cityObj) {
-      let aaa = this;
+      let vueInstance = this;
       let windDirection = '0';
       let weatherCode = 0;
+
       this.$axios.timeout = 20;
       this.$axios
-        .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=ru`)
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=${vueInstance.locale}`)
         .then(function(response) {
           if (response.status >= 400 && response.status <= 499) {
             // console.log('no');
@@ -147,20 +148,20 @@ export default {
             cityObj.windDirection = Math.round(Number(response.data.wind.deg), 0);
             windDirection = Number(cityObj.windDirection);
             windDirection >= 23 && windDirection < 68
-              ? ((cityObj.windDirection = 'СВ'), (cityObj.windDirectionIcon = 'arrow-top-right-thick'))
+              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'СВ' : 'NE'), (cityObj.windDirectionIcon = 'arrow-top-right-thick'))
               : windDirection >= 68 && windDirection < 113
-              ? ((cityObj.windDirection = 'В'), (cityObj.windDirectionIcon = 'arrow-right-thick'))
+              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'В' : 'E'), (cityObj.windDirectionIcon = 'arrow-right-thick'))
               : windDirection >= 113 && windDirection < 158
-              ? ((cityObj.windDirection = 'ЮВ'), (cityObj.windDirectionIcon = 'arrow-bottom-right-thick'))
+              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'ЮВ' : 'SE'), (cityObj.windDirectionIcon = 'arrow-bottom-right-thick'))
               : windDirection >= 158 && windDirection < 203
-              ? ((cityObj.windDirection = 'Ю'), (cityObj.windDirectionIcon = 'arrow-down-thick'))
+              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'Ю' : 'S'), (cityObj.windDirectionIcon = 'arrow-down-thick'))
               : windDirection >= 203 && windDirection < 248
-              ? ((cityObj.windDirection = 'ЮЗ'), (cityObj.windDirectionIcon = 'arrow-bottom-left-thick'))
+              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'ЮЗ' : 'SW'), (cityObj.windDirectionIcon = 'arrow-bottom-left-thick'))
               : windDirection >= 248 && windDirection < 293
-              ? ((cityObj.windDirection = 'З'), (cityObj.windDirectionIcon = 'arrow-left-thick'))
+              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'З' : 'W'), (cityObj.windDirectionIcon = 'arrow-left-thick'))
               : windDirection >= 293 && windDirection < 338
-              ? ((cityObj.windDirection = 'СЗ'), (cityObj.windDirectionIcon = 'arrow-top-left-thick'))
-              : ((cityObj.windDirection = 'С'), (cityObj.windDirectionIcon = 'arrow-up-thick'));
+              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'СЗ' : 'NW'), (cityObj.windDirectionIcon = 'arrow-top-left-thick'))
+              : ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'С' : 'N'), (cityObj.windDirectionIcon = 'arrow-up-thick'));
 
             weatherCode = Number(response.data.weather[0].id);
             weatherCode >= 200 && weatherCode <= 232
@@ -191,7 +192,7 @@ export default {
         })
         .catch(error => {
           if (error.response.status == 404) {
-            aaa.cities.splice(this.cities.indexOf(cityObj), 1);
+            vueInstance.cities.splice(this.cities.indexOf(cityObj), 1);
             this.snackbarText = 'Информация о погоде не найдена';
             this.snackbar = true;
           }
@@ -203,13 +204,13 @@ export default {
         this.snackbarText = 'Достигнуто максимальное количество городов';
         this.snackbar = true;
       } else {
-        var aaa = this;
+        var vueInstance = this;
         if (!this.cities.some(c => c.name.toLowerCase() === this.addingCity.name.toLowerCase() || c.ruName === this.addingCity.name)) {
           this.showAddNew = false;
           let promise = new Promise(function(resolve) {
-            // let r = aaa.loadWeather(aaa.addingCity);
+            // let r = vueInstance.loadWeather(vueInstance.addingCity);
             // console.log(r);
-            if (aaa.loadWeather(aaa.addingCity)) {
+            if (vueInstance.loadWeather(vueInstance.addingCity)) {
               resolve('done');
             } else {
               resolve('error');
@@ -218,14 +219,14 @@ export default {
 
           promise.then(function(response) {
             console.log(response);
-            const db = aaa.$firebase.firestore();
+            const db = vueInstance.$firebase.firestore();
             var batch = db.batch();
             let doc = db.collection('Weather').doc();
-            aaa.addingCity.docId = doc;
-            batch.set(doc, aaa.addingCity);
+            vueInstance.addingCity.docId = doc;
+            batch.set(doc, vueInstance.addingCity);
             batch.commit();
-            aaa.cities.push(aaa.addingCity);
-            aaa.addingCity = {
+            vueInstance.cities.push(vueInstance.addingCity);
+            vueInstance.addingCity = {
               name: '',
               ruName: '',
               temp: '',
@@ -241,8 +242,8 @@ export default {
 
           promise.catch(function(response) {
             console.log(response);
-            aaa.snackbarText = 'Информации о данном городе не существует';
-            aaa.snackbar = true;
+            vueInstance.snackbarText = 'Информации о данном городе не существует';
+            vueInstance.snackbar = true;
           });
         } else {
           this.snackbarText = 'Информация о погоде в данном городе уже есть';
@@ -265,7 +266,7 @@ export default {
     document.querySelector('.v-application--wrap').classList.remove('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.add('weather-bg');
-    document.title = 'Дмитрий Халин | Погода';
+    document.title = this.$t('TITLE_weather');
 
     this.$weatherLoaded = true;
 
@@ -305,6 +306,7 @@ export default {
       });
   },
   beforeCreate() {
+    this.locale = this.$i18n.locale;
     console.log(this.$weatherLoaded);
     if (this.$weatherLoaded.value) {
       console.log('if');

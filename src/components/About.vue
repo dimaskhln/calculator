@@ -128,7 +128,7 @@ export default {
     document.querySelector('.v-application--wrap').classList.add('basetobase-bg');
     document.querySelector('.v-application--wrap').classList.remove('todo-bg');
     document.querySelector('.v-application--wrap').classList.remove('calculator-bg');
-    document.title = 'Дмитрий Халин | Обо мне';
+    document.title = this.$t('TITLE_about');
 
     this.age = new Date(new Date() - new Date('04/27/1995')).getFullYear() - 1970;
     let ageString = String(this.age);
