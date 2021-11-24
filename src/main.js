@@ -12,18 +12,15 @@ import 'firebase/compat/firestore';
 require('firebase/firestore');
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-{
-  /* <script type="text/javascript" src="./src/apiKeys.js"></script>; */
-}
-import { keys } from './apiKeys';
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: keys.FIREBASE_apiKey,
-  authDomain: keys.FIREBASE_authDomain,
-  projectId: keys.FIREBASE_projectId,
-  storageBucket: keys.FIREBASE_storageBucket,
-  messagingSenderId: keys.FIREBASE_messagingSenderId,
-  appId: keys.FIREBASE_appId
+  apiKey: process.env.VUE_APP_FIREBASEapiKey,
+  authDomain: process.env.VUE_APP_FIREBASEauthDomain,
+  projectId: process.env.VUE_APP_FIREBASEprojectId,
+  storageBucket: process.env.VUE_APP_FIREBASEstorageBucket,
+  messagingSenderId: process.env.VUE_APP_FIREBASEmessagingSenderId,
+  appId: process.env.VUE_APP_FIREBASEappId
 };
 
 // Initialize Firebase
