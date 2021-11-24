@@ -89,8 +89,7 @@
 </style>
 
 <script>
-import { keys } from '../apiKeys';
-const apiKey = keys.OPEN_WEATHER;
+const apiKey = 'ef57d55dd5d03a775346a8c71d30d91c';
 
 export default {
   data() {
@@ -120,8 +119,6 @@ export default {
   },
   methods: {
     getWeather: function() {
-      console.log(this.$i18n.locale);
-
       this.isLoading = true;
       this.cities.forEach(cityObj => {
         this.loadWeather(cityObj);

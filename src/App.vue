@@ -21,7 +21,6 @@ export default {
     //Footer,
     TabNavigator
   },
-  data() {},
   methods: {
     changeLocale(locale) {
       i18n.locale = locale;

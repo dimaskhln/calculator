@@ -10,6 +10,7 @@
   "dependencies": {
     "bfg": "^0.3.0",
     "core-js": "^3.6.5",
+    "dotenv-webpack": "^7.0.3",
     "firebase": "^9.4.0",
     "vue": "^2.6.11",
     "vue-i18n": "^8.26.7",
