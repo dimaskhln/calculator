@@ -89,8 +89,7 @@
 </style>
 
 <script>
-import { keys } from '../apiKeys';
-const apiKey = keys.OPEN_WEATHER;
+const apiKey = process.env.VUE_APP_OPENWEATHER;
 
 export default {
   data() {
@@ -120,8 +119,6 @@ export default {
   },
   methods: {
     getWeather: function() {
-      console.log(this.$i18n.locale);
-
       this.isLoading = true;
       this.cities.forEach(cityObj => {
         this.loadWeather(cityObj);
