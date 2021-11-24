@@ -295,7 +295,6 @@ export default {
           if (nameA > nameB) {
             return 1;
           }
-          // names must be equal
           return 0;
         });
         this.cities = cities;
