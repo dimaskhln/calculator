@@ -24,8 +24,11 @@ pnpm-debug.log*
 
 deploy.sh
 
-apiKeys.js
+.env
+.env.production
 
 *.prettierrc
 
 expressions.txt
+
+package-lock.json
