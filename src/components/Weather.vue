@@ -1,14 +1,11 @@
 <template>
-  <v-container fluid>
-    <v-overlay :value="isLoading">
-      <v-progress-circular indeterminate size="64" color="teal lighten-4"></v-progress-circular>
-    </v-overlay>
+  <v-container fluid :key="$i18n.locale" v-on:change="loadWeather()">
     <v-row align="center"
       ><v-col v-for="city in cities" :key="city.name" cols="12" sm="12" md="4">
         <v-sheet color="darken-2" class="mx-3 mt-3" v-if="!city.isLoaded">
           <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
         </v-sheet>
-        <v-card class="mx-3 mt-3" v-if="city.isLoaded">
+        <v-card class="mx-3 mt-3" v-if="city.isLoaded" :key="$i18n.locale" v-on:change="loadWeather()">
           <v-card-title>{{ $i18n.locale == 'ru' ? city.ruName : city.name }}</v-card-title>
 
           <v-row>

@@ -15,10 +15,10 @@ export const messages = {
     TITLE_todo: 'Дмитрий Халин | Список дел',
     TITLE_about: 'Дмитрий Халин | Обо мне',
 
-    CALC_poorSalary: 'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз',
-    CALC_lowSalary: 'Близко к моей желаемой зарплате, но хочется большего',
-    CALC_okSalary: 'Да, такая зарплата меня устроит (на начальном этапе)',
-    CALC_highSalary: 'Если это моя будущая зарплата, то считайте мы договорились',
+    CALC_poorSalary: 'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз &#128521;',
+    CALC_lowSalary: 'Близко к моей желаемой зарплате, но хочется большего &#128580;',
+    CALC_okSalary: 'Да, такая зарплата меня устроит (на начальном этапе) &#128578; &#128077;',
+    CALC_highSalary: 'Если это моя будущая зарплата, то считайте мы договорились &#128522; &#129309; &#128522;',
     CALC_superSalary: 'Пока можно начальство такими числами не пугать &#128517; (ключевое слово "пока")',
 
     WEATHER_dialogHead: 'Это не просто погодный виджет!',
@@ -77,10 +77,11 @@ export const messages = {
     TITLE_todo: 'Dmitriy Khalin | ToDo',
     TITLE_about: 'Dmitriy Khalin | About me',
 
-    CALC_lowSalary: "That's couldn't be my salary. Please try again.",
+    CALC_poorSalary: "That's couldn't be my salary. Please try again.",
+    CALC_lowSalary: '',
     CALC_okSalary: '',
     CALC_highSalary: '',
-    CALC_superSalary: "Wow! Don't frighten your boss with this numbers! &#128517; For now...",
+    CALC_superSalary: "Wow! Don't frighten your boss with this numbers! 🛢 For now...",
 
     WEATHER_dialogHead: 'This is not just a weather widget!',
     WEATHER_dialogBody: "Yeah, you can check the weather here, but also you can see in which cities I've already been.",

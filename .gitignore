@@ -30,5 +30,3 @@ deploy.sh
 *.prettierrc
 
 expressions.txt
-
-package-lock.json

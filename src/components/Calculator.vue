@@ -127,15 +127,15 @@ export default {
           break;
       } // Сдобрить эмодзями ↓
       if (this.value - 60000 <= 5000 && this.value - 60000 >= -5000) {
-        this.salaryText = 'Да, такая зарплата меня устроит (на начальном этапе)';
+        this.salaryText = this.$t('CALC_okSalary'); //'Да, такая зарплата меня устроит (на начальном этапе)';
       } else if (this.value - 60000 < -20000) {
-        this.salaryText = 'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз';
+        this.salaryText = this.$t('CALC_lowSalary'); //'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз';
       } else if (this.value - 60000 < -5000 && this.value - 60000 >= -20000) {
-        this.salaryText = 'Близко к моей желаемой зарплате, но хочется большего';
+        this.salaryText = this.$t('CALC_meanSalary'); //'Близко к моей желаемой зарплате, но хочется большего';
       } else if (this.value - 60000 > 5000 && this.value - 60000 <= 25000) {
-        this.salaryText = 'Если это моя будущая зарплата, то считайте мы договорились'; // Что-то придумать другое
+        this.salaryText = this.$t('CALC_highSalary'); //'Если это моя будущая зарплата, то считайте мы договорились'; // Что-то придумать другое
       } else if (this.value - 60000 > 25000) {
-        this.salaryText = 'Пока можно начальство такими числами не пугать (ключевое слово "пока")';
+        this.salaryText = this.$t('CALC_superSalary'); //'Пока можно начальство такими числами не пугать (ключевое слово "пока")';
       }
       this.isEqualPressed = true;
     },

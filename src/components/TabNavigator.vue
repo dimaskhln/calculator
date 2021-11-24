@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-3 mt-3">
-    <v-tabs background-color="teal darken-4" dark center-active>
+    <v-tabs background-color="teal darken-4" dark center-active :key="$i18n.locale">
       <v-tab to="/calculator">{{ $t('HEAD_calculator') }}</v-tab>
       <!-- <v-tab to="/base-to-base">Системы счисления</v-tab> -->
       <v-tab to="/weather">{{ $t('HEAD_weather') }}</v-tab>
