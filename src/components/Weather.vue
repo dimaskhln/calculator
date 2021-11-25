@@ -1,17 +1,18 @@
 <template>
-  <v-container fluid :key="$i18n.locale" v-on:change="loadWeather()">
+  <!-- :key="$i18n.locale" v-on:change="loadWeather()" -->
+  <v-container fluid>
     <v-row align="center"
       ><v-col v-for="city in cities" :key="city.name" cols="12" sm="12" md="4">
         <v-sheet color="darken-2" class="mx-3 mt-3" v-if="!city.isLoaded">
           <v-skeleton-loader class="mx-auto" type="card"></v-skeleton-loader>
         </v-sheet>
-        <v-card class="mx-3 mt-3" v-if="city.isLoaded" :key="$i18n.locale" v-on:change="loadWeather()">
+        <v-card class="mx-3 mt-3" v-if="city.isLoaded">
           <v-card-title>{{ $i18n.locale == 'ru' ? city.ruName : city.name }}</v-card-title>
 
           <v-row>
             <v-col cols="6" sm="3"><v-img class="ml-3" max-width="200" :src="'/images/weather/' + city.img"/></v-col>
             <v-col cols="6" sm="3"
-              ><div class="text-h2 text-center" style="white-space:nowrap">{{ city.temp }}</div></v-col
+              ><div class="text-h2 text-center" style="white-space:nowrap">{{ city.temp }}°C</div></v-col
             >
           </v-row>
           <v-card-text>
@@ -128,8 +129,10 @@ export default {
       let weatherCode = 0;
 
       this.$axios.timeout = 20;
+      console.log(vueInstance.$i18n.locale);
+
       this.$axios
-        .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=${vueInstance.locale}`)
+        .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=${vueInstance.$i18n.locale}`)
         .then(function(response) {
           if (response.status >= 400 && response.status <= 499) {
             // console.log('no');
@@ -142,20 +145,20 @@ export default {
             cityObj.windDirection = Math.round(Number(response.data.wind.deg), 0);
             windDirection = Number(cityObj.windDirection);
             windDirection >= 23 && windDirection < 68
-              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'СВ' : 'NE'), (cityObj.windDirectionIcon = 'arrow-top-right-thick'))
+              ? ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'СВ' : 'NE'), (cityObj.windDirectionIcon = 'arrow-top-right-thick'))
               : windDirection >= 68 && windDirection < 113
-              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'В' : 'E'), (cityObj.windDirectionIcon = 'arrow-right-thick'))
+              ? ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'В' : 'E'), (cityObj.windDirectionIcon = 'arrow-right-thick'))
               : windDirection >= 113 && windDirection < 158
-              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'ЮВ' : 'SE'), (cityObj.windDirectionIcon = 'arrow-bottom-right-thick'))
+              ? ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'ЮВ' : 'SE'), (cityObj.windDirectionIcon = 'arrow-bottom-right-thick'))
               : windDirection >= 158 && windDirection < 203
-              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'Ю' : 'S'), (cityObj.windDirectionIcon = 'arrow-down-thick'))
+              ? ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'Ю' : 'S'), (cityObj.windDirectionIcon = 'arrow-down-thick'))
               : windDirection >= 203 && windDirection < 248
-              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'ЮЗ' : 'SW'), (cityObj.windDirectionIcon = 'arrow-bottom-left-thick'))
+              ? ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'ЮЗ' : 'SW'), (cityObj.windDirectionIcon = 'arrow-bottom-left-thick'))
               : windDirection >= 248 && windDirection < 293
-              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'З' : 'W'), (cityObj.windDirectionIcon = 'arrow-left-thick'))
+              ? ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'З' : 'W'), (cityObj.windDirectionIcon = 'arrow-left-thick'))
               : windDirection >= 293 && windDirection < 338
-              ? ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'СЗ' : 'NW'), (cityObj.windDirectionIcon = 'arrow-top-left-thick'))
-              : ((cityObj.windDirection = vueInstance.locale == 'ru' ? 'С' : 'N'), (cityObj.windDirectionIcon = 'arrow-up-thick'));
+              ? ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'СЗ' : 'NW'), (cityObj.windDirectionIcon = 'arrow-top-left-thick'))
+              : ((cityObj.windDirection = vueInstance.$i18n.locale == 'ru' ? 'С' : 'N'), (cityObj.windDirectionIcon = 'arrow-up-thick'));
 
             weatherCode = Number(response.data.weather[0].id);
             weatherCode >= 200 && weatherCode <= 232

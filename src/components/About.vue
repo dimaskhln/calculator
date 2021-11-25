@@ -6,18 +6,22 @@
     <v-row
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
-          <v-card-title>Добрый {{ greetings }}!</v-card-title>
+          <v-card-title>{{ $t('ABOUT_mainInfoHead') }} {{ greetings }}!</v-card-title>
           <v-card-text>
+            {{ $t('ABOUT_mainInfoBody') }}
             Меня зовут Дмитрий.<br />
             Мне {{ age }} {{ ageWord }}. <br />
             Я web-разработчик. <br />
+            Образование - высшее НГТУ 2019 магистр <br />
+            Профессиональные навыки + может другие <br />
             Мне нравится создавать удобные интерфейсы и наполнять приложения логикой.
           </v-card-text>
         </v-card></v-col
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
-          <v-card-title>Мои хобби</v-card-title>
+          <v-card-title>{{ $t('ABOUT_hobbiesHead') }}</v-card-title>
           <v-card-text>
+            {{ $t('ABOUT_hobbiesBody') }}
             <a href="https://steamcommunity.com/id/dimastip" target="_blank">Компьютерные игры</a>, гитара, коллекционирование старых мобильных телефонов
           </v-card-text>
         </v-card></v-col
@@ -26,38 +30,15 @@
     <v-row
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
-          <v-card-title>Мои достижения</v-card-title>
+          <v-card-title>{{ $t('ABOUT_achievementsHead') }}</v-card-title>
           <v-card-text>
-            За неполные три года работы в качестве Frontend-разработчика я !!!!!№!№" Web-приложение для управления охранными системами, доступное как на
-            десктопе, так и на мобильных устройствах. При разработке использовались №%№;№;;№" HTML+CSS+JS, jQuery, бэкенд на C# (ASP.NET), MSSQL, Также одной из
-            моих обязанностей была разработка и поддержка приложения-оболочки для этой системы управления на Android (Xamarin) с дополнительным функционалом.
+            {{ $t('ABOUT_achievementsBody') }}
           </v-card-text>
         </v-card></v-col
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
-          <v-card-title>Чего я хочу</v-card-title>
-          <v-card-text
-            >До того как я пришел в компанию, в которой работаю сейчас, Web-разработкой я не занимался вообще. Знания о JavaScript и jQuery пришлось добывать "в
-            бою", поэтому есть ощущения что в них могут быть пробелы. Поэтому в первую очередь я хочу актуализировать свои навыки. Есть ощущение, что вокруг все
-            уже перемещаются на летающих машинах, а я всё ещё езжу на повозке, запряженной лошадьми. Для их восполнения я хочу попасть в профессиональную
-            команду, в которой я смогу выровнять свои знания и получить новые. Также мне хочется видеть впереди перспективы - и профессиональные и финансовые.
-            Безусловно, я понимаю, что для этого нужно усердно и качественно работать, к чему я готов и чего я хочу.</v-card-text
-          >
-        </v-card></v-col
-      >
-    </v-row>
-    <v-row
-      ><v-col cols="12" sm="12" md="6">
-        <v-card class="mt-3 mx-3">
-          <v-card-title>Что я уже умею</v-card-title>
-          <v-card-text>HTML, CSS, JavaScript, jQuery, Vue, SQL, PHP, C#</v-card-text>
-          <v-card-text>R, Статистический анализ данных</v-card-text>
-          <v-card-text>Photoshop, Sony Vegas (MAGIX Vegas) </v-card-text>
-        </v-card></v-col
-      ><v-col cols="12" sm="12" md="6">
-        <v-card class="mt-3 mx-3">
-          <v-card-title>Чему хочу научиться</v-card-title>
-          <v-card-text>React</v-card-text>
+          <v-card-title>{{ $t('ABOUT_whyChangeHead') }}</v-card-title>
+          <v-card-text>{{ $t('ABOUT_whyChangeBody') }} </v-card-text>
         </v-card></v-col
       >
     </v-row>
@@ -65,7 +46,7 @@
       <v-footer width="100%" absolute>
         <v-row>
           <v-col cols="12" sm="12" md="6" class="text-center"
-            >Свяжитесь со мной: <br />
+            >{{ $t('ABOUT_footerContact') }} <br />
             <a target="_blank" href="https://vk.com/thisisdimas"
               ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/vk_128.png"></v-img
             ></a>
@@ -83,7 +64,7 @@
               >me@dimaskhln.ru</a
             ></v-col
           ><v-col cols="12" sm="12" md="6" class="text-center">
-            Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from
+            {{ $t('ABOUT_footerIcons1') }} <a href="https://www.freepik.com" title="Freepik">Freepik</a> {{ $t('ABOUT_footerIcons2') }}
             <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></v-col
           >
         </v-row>
@@ -93,18 +74,13 @@
     <v-dialog v-if="showDialog" v-model="dialog" max-width="500">
       <v-card>
         <v-card-title class="text-h5">
-          Добро пожаловать!
+          {{ $t('ABOUT_dialogHead') }}
         </v-card-title>
-
-        <v-card-text
-          >Меня зовут Дмитрий и я очень рад, что Вы зашли на мою страницу! <br />
-          Пройдите по всем вкладкам и Вы узнаете обо мне то, что я хочу Вам о себе рассказать!</v-card-text
-        >
-
+        <v-card-text>{{ $t('ABOUT_dialogBody') }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="green darken-1" text @click="dialog = false">
-            Хорошо
+            {{ $t('ABOUT_dialogButton') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -143,9 +119,9 @@ export default {
     let hour = new Date(Date.now()).getHours();
 
     if (hour >= 17 && hour <= 3) {
-      this.greetings = 'вечер';
+      this.greetings = this.$i18n.locale == 'ru' ? 'вечер' : 'evening';
     } else {
-      this.greetings = 'день';
+      this.greetings = this.$i18n.locale == 'ru' ? 'день' : 'day';
     }
   },
   beforeCreate() {

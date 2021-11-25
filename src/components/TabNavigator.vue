@@ -19,18 +19,17 @@ let localStorage = window.localStorage;
 export default {
   methods: {
     changeLocale: function(locale) {
-      console.log(this.$i18n.locale);
       switch (locale) {
         case 'ru':
-          this.$i18n.locale = 'en';
+          // this.$i18n.locale = 'en';
           localStorage.setItem('locale', 'en');
           break;
         case 'en':
           localStorage.setItem('locale', 'ru');
-          this.$i18n.locale = 'ru';
+          // this.$i18n.locale = 'ru';
           break;
       }
-      console.log(this.$i18n.locale);
+      window.location.reload();
     }
   },
   mounted() {

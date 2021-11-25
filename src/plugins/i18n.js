@@ -45,15 +45,16 @@ export const messages = {
     ABOUT_dialogHead: 'Добро пожаловать',
     ABOUT_dialogBody:
       'Меня зовут Дмитрий и я очень рад, что Вы зашли на мою страницу! <br />Пройдите по всем вкладкам и Вы узнаете обо мне то, что я хочу Вам о себе рассказать!',
+    ABOUT_dialogButton: 'Хорошо',
     ABOUT_mainInfoHead: 'Добрый',
     ABOUT_mainInfoBody:
-      'Меня зовут Дмитрий.<br />Мне {{ age }} {{ ageWord }}. <br />Я web-разработчик. <br /> Мне нравится создавать удобные интерфейсы и наполнять приложения логикой.',
+      'Меня зовут Дмитрий.<br />Мне. <br />Я web-разработчик. <br /> Мне нравится создавать удобные интерфейсы и наполнять приложения логикой.',
     ABOUT_hobbiesHead: 'Мои хобби',
     ABOUT_hobbiesBody:
       '<a href="https://steamcommunity.com/id/dimastip" target="_blank">Компьютерные игры</a>, гитара, коллекционирование старых мобильных телефонов',
     ABOUT_achievementsHead: 'Мои достижения',
     ABOUT_achievementsBody:
-      'За неполные три года работы в качестве Frontend-разработчика я !!!!!№!№" Web-приложение для управления охранными системами, доступное как на десктопе, так и на мобильных устройствах. При разработке использовались №%№;№;;№" HTML+CSS+JS, jQuery, бэкенд на C# (ASP.NET), MSSQL, Также одной из моих обязанностей была разработка и поддержка приложения-оболочки для этой системы управления на Android (Xamarin) с дополнительным функционалом.',
+      'За неполные три года работы в качестве Frontend-разработчика я сделал Web-приложение для управления охранными системами, доступное как на десктопе, так и на мобильных устройствах. При разработке использовались такие технологии как HTML, CSS, JS вместе с jQuery, бэкенд  был на C# (ASP.NET). Также одной из моих обязанностей была разработка и поддержка приложения-оболочки для этой системы управления на Android (Xamarin) с дополнительным функционалом.',
     ABOUT_whyChangeHead: 'Чего я хочу',
     ABOUT_whyChangeBody:
       'До того как я пришел в компанию, в которой работаю сейчас, Web-разработкой я не занимался вообще. Знания о JavaScript и jQuery пришлось добывать "в бою", поэтому есть ощущения что в них могут быть пробелы. Поэтому в первую очередь я хочу актуализировать свои навыки. Есть ощущение, что вокруг все уже перемещаются на летающих машинах, а я всё ещё езжу на повозке, запряженной лошадьми. Для их восполнения я хочу попасть в профессиональную команду, в которой я смогу выровнять свои знания и получить новые. Также мне хочется видеть впереди перспективы - и профессиональные и финансовые. Безусловно, я понимаю, что для этого нужно усердно и качественно работать, к чему я готов и чего я хочу.',
@@ -63,8 +64,8 @@ export const messages = {
     ABOUT_goalsHead: 'Чему хочу научиться',
     ABOUT_goalsBody: 'React',
     ABOUT_footerContact: 'Свяжитесь со мной!',
-    ABOUT_footerIcons:
-      'Изображения сделаны <a href="https://www.freepik.com" title="Freepik">Freepik</a> из <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>'
+    ABOUT_footerIcons1: 'Изображения сделаны ',
+    ABOUT_footerIcons2: ' из '
   },
   en: {
     HEAD_calculator: 'Calculator',
@@ -106,21 +107,24 @@ export const messages = {
 
     ABOUT_dialogHead: 'Welcome!',
     ABOUT_dialogBody: "I'm Dmitriy and glad to see you here! Go through all the tabs to know something about me!",
-    ABOUT_mainInfoHead: 'Good evening!',
+    ABOUT_dialogButton: 'Ok',
+    ABOUT_mainInfoHead: 'Good ',
     ABOUT_mainInfoBody: '',
     ABOUT_hobbiesHead: 'My hobbies',
     ABOUT_hobbiesBody: '',
     ABOUT_achievementsHead: 'My achievements',
-    ABOUT_achievementsBody: '',
+    ABOUT_achievementsBody:
+      'During my incomplete three years of work as a Frontend developer I made a web-application for managing security systems, available both on desktop and mobile devices. During development we used such technologies as HTML, CSS, JS with jQuery, backend was on C# (ASP.NET). Also one of my responsibilities was to develop and maintain a wrapper application for the control system mentioned above on Android (Xamarin) with additional functionality.',
     ABOUT_whyChangeHead: 'My priorities',
-    ABOUT_whyChangeBody: '',
+    ABOUT_whyChangeBody:
+      'Before joining the company where I work now, I was not involved in web-development at all. The knowledge about JavaScript and jQuery had to be gained in practice, so there is a feeling that there may be gaps in them.    Therefore, first of all, I want to update my skills. There is a feeling that everyone is already moving around in flying cars, and I still ride a horse-drawn carriage.    To restore knowledge gaps, I want to get into a professional team in which I can actualize my knowledge and get new skills. I also want prospects - both professional and financial.    I understand that this requires hard work and high-quality result from me. I am ready for this and I want it.',
     ABOUT_skillsHead: 'My skills',
     ABOUT_skillsBody: '',
     ABOUT_goalsHead: 'My goals',
     ABOUT_goalsBody: '',
     ABOUT_footerContact: 'Contact me!',
-    ABOUT_footerIcons:
-      'Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from<a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>'
+    ABOUT_footerIcons1: 'Icons made by ',
+    ABOUT_footerIcons2: ' from '
   }
 };
 
