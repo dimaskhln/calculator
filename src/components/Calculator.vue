@@ -43,7 +43,10 @@
       </v-row>
     </v-container>
     <v-container class="pa-0 mb-0" elevation="3">
-      <v-alert class="mt-6 mb-0" v-if="isEqualPressed" text color="light-blue darken-4"><v-icon class="mr-2">mdi-cash-100</v-icon>{{ salaryText }}</v-alert>
+      <v-alert class="mt-6 mb-0" v-if="isEqualPressed" text color="light-blue darken-4"
+        ><b>{{ $t('CALC_whatIfThisIsMySalary') }}</b
+        ><br /><br />{{ salaryText }}</v-alert
+      >
     </v-container>
   </v-card>
 </template>
@@ -129,12 +132,12 @@ export default {
       if (this.value - 60000 <= 5000 && this.value - 60000 >= -5000) {
         this.salaryText = this.$t('CALC_okSalary'); //'Да, такая зарплата меня устроит (на начальном этапе)';
       } else if (this.value - 60000 < -20000) {
-        this.salaryText = this.$t('CALC_lowSalary'); //'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз';
+        this.salaryText = this.$t('CALC_poorSalary'); //'Если это моя будущая зарплата, то попробуйте, пожалуйста, ещё раз';
       } else if (this.value - 60000 < -5000 && this.value - 60000 >= -20000) {
-        this.salaryText = this.$t('CALC_meanSalary'); //'Близко к моей желаемой зарплате, но хочется большего';
-      } else if (this.value - 60000 > 5000 && this.value - 60000 <= 25000) {
+        this.salaryText = this.$t('CALC_lowSalary'); //'Близко к моей желаемой зарплате, но хочется большего';
+      } else if (this.value - 60000 > 5000 && this.value - 60000 <= 30000) {
         this.salaryText = this.$t('CALC_highSalary'); //'Если это моя будущая зарплата, то считайте мы договорились'; // Что-то придумать другое
-      } else if (this.value - 60000 > 25000) {
+      } else if (this.value - 60000 > 30000) {
         this.salaryText = this.$t('CALC_superSalary'); //'Пока можно начальство такими числами не пугать (ключевое слово "пока")';
       }
       this.isEqualPressed = true;

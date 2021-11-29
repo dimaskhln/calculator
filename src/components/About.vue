@@ -18,8 +18,8 @@
         <v-card class="mt-3 mx-3">
           <v-card-title>{{ $t('ABOUT_hobbiesHead') }}</v-card-title>
           <v-card-text>
-            {{ $t('ABOUT_hobbiesBody') }}
-            <a href="https://steamcommunity.com/id/dimastip" target="_blank">Компьютерные игры</a>, гитара, коллекционирование старых мобильных телефонов
+            <a href="https://steamcommunity.com/id/dimastip" target="_blank">{{ $t('ABOUT_hobbiesBodyPCGames') }}</a
+            >{{ $t('ABOUT_hobbiesBodyOther') }}
           </v-card-text>
         </v-card></v-col
       >
