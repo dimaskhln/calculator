@@ -22,7 +22,9 @@
       <v-btn class="ma-3" color="green accent-2" v-if="task.isDone" v-on:click="markDone(task)"
         ><v-icon color="green darken-4">mdi-check-circle-outline</v-icon></v-btn
       >
-      <v-btn class="my-3" color="red accent-1" v-on:click="removeTask(task.docId)"><v-icon color="red darken-4">mdi-delete-outline</v-icon></v-btn>
+      <v-btn class="my-3" v-if="task.id > 4" color="red accent-1" v-on:click="removeTask(task.docId)"
+        ><v-icon color="red darken-4">mdi-delete-outline</v-icon></v-btn
+      >
     </v-card>
     <v-card v-if="!showAdd" v-on:click="showAdd = true" class="ma-12"
       ><v-card-title>{{ $t('TODO_addButton') }} <v-icon>mdi-plus</v-icon></v-card-title></v-card
@@ -187,21 +189,9 @@ export default {
   },
   computed: {}
 };
-/*
-TODO:
-Сортировка
-Календарь задач
-*/
+
 const timeElapsed = Date.now();
 // var date = new Date();
 // var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
 const today = new Date(timeElapsed);
 </script>
-
-// { // id: 0, // name: 'Стать чемпионом школьной лиги КВН', // date: '2011-05-16', // description: 'И гордиться потом', // priority: 1, // isDone: true // },
-// { // id: 1, // name: 'Закончить бакалавриат', // date: '2017-07-01', // description: 'На факультете прикладной математики и информатики НГТУ', // priority:
-1, // isDone: true // }, // { // id: 2, // name: 'Закончить магистратуру', // date: '2019-07-04', // description: 'Тоже на факультете прикладной математики и
-информатики НГТУ', // priority: 1, // isDone: true // }, // { // id: 3, // name: 'Получить опыт работы над реальными задачами', // date: '2021-10-01', //
-description: // 'Разработать веб-приложение на платформе ASP.NET и мобильное приложение на Android. А также JS-only приложение и другие веб-приложения различной
-сложности', // priority: 1, // isDone: true // }, // { id: 4, name: 'Найти место работы по душе', date: '2021-12-31', description: '', priority: 1, isDone:
-false }

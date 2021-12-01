@@ -6,12 +6,6 @@
           <v-card-title>{{ $t('ABOUT_mainInfoHead') }} {{ greetings }}!</v-card-title>
           <v-card-text>
             {{ $t('ABOUT_mainInfoBody') }}
-            Меня зовут Дмитрий.<br />
-            Мне {{ age }} {{ ageWord }}. <br />
-            Я web-разработчик. <br />
-            Образование - высшее НГТУ 2019 магистр <br />
-            Профессиональные навыки + может другие <br />
-            Мне нравится создавать удобные интерфейсы и наполнять приложения логикой.
           </v-card-text>
         </v-card></v-col
       ><v-col cols="12" sm="12" md="6">
@@ -27,15 +21,15 @@
     <v-row class="mb-3"
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
+          <v-card-title>{{ $t('ABOUT_whyChangeHead') }}</v-card-title>
+          <v-card-text>{{ $t('ABOUT_whyChangeBody') }} </v-card-text>
+        </v-card></v-col
+      ><v-col cols="12" sm="12" md="6">
+        <v-card class="mt-3 mx-3">
           <v-card-title>{{ $t('ABOUT_achievementsHead') }}</v-card-title>
           <v-card-text>
             {{ $t('ABOUT_achievementsBody') }}
           </v-card-text>
-        </v-card></v-col
-      ><v-col cols="12" sm="12" md="6">
-        <v-card class="mt-3 mx-3">
-          <v-card-title>{{ $t('ABOUT_whyChangeHead') }}</v-card-title>
-          <v-card-text>{{ $t('ABOUT_whyChangeBody') }} </v-card-text>
         </v-card></v-col
       >
     </v-row>

@@ -43,13 +43,7 @@
         >
       </v-card></v-row
     >
-    <v-row
-      ><v-footer width="100%">
-        <v-col class="text-center" color="teal lighten-4" height="20" cols="12">
-          {{ $t('WEATHER_footer') }} <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a>
-        </v-col>
-      </v-footer></v-row
-    >
+    <div class="text-left">{{ $t('WEATHER_footer') }} <a href="https://openweathermap.org" target="_blank">OpenWeatherMap</a></div>
     <v-dialog v-if="showDialog" v-model="dialog" max-width="500">
       <v-card>
         <v-card-title class="text-h5">
