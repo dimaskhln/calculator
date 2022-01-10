@@ -88,7 +88,6 @@ export default {
       this.isEqualPressed = false;
     },
     remember: function(act) {
-      console.log(act);
       this.done = false;
       if (act === 'sqrt') {
         this.value = Math.sqrt(this.value);
@@ -156,33 +155,43 @@ export default {
     window.addEventListener('keydown', e => {
       switch (e.code) {
         case 'Numpad1' || 'Digit1':
+          document.activeElement.blur();
           this.write('1');
           break;
         case 'Numpad2' || 'Digit2':
+          document.activeElement.blur();
           this.write('2');
           break;
         case 'Numpad3' || 'Digit3':
+          document.activeElement.blur();
           this.write('3');
           break;
         case 'Numpad4' || 'Digit4':
+          document.activeElement.blur();
           this.write('4');
           break;
         case 'Numpad5' || 'Digit5':
+          document.activeElement.blur();
           this.write('5');
           break;
         case 'Numpad6' || 'Digit6':
+          document.activeElement.blur();
           this.write('6');
           break;
         case 'Numpad7' || 'Digit7':
+          document.activeElement.blur();
           this.write('7');
           break;
         case 'Numpad8' || 'Digit8':
+          document.activeElement.blur();
           this.write('8');
           break;
         case 'Numpad9' || 'Digit9':
+          document.activeElement.blur();
           this.write('9');
           break;
         case 'Numpad0' || 'Digit0':
+          document.activeElement.blur();
           this.write('0');
           break;
         case 'NumpadDecimal' || 'Period':

@@ -123,7 +123,6 @@ export default {
       let weatherCode = 0;
 
       this.$axios.timeout = 20;
-      console.log(vueInstance.$i18n.locale);
 
       this.$axios
         .get(`https://api.openweathermap.org/data/2.5/weather?q=${cityObj.name}&appid=${apiKey}&units=metric&lang=${vueInstance.$i18n.locale}`)
@@ -297,16 +296,11 @@ export default {
   },
   beforeCreate() {
     this.locale = this.$i18n.locale;
-    console.log(this.$weatherLoaded);
     if (this.$weatherLoaded.value) {
-      console.log('if');
       this.showDialog = false;
-      console.log(this.$weatherLoaded.value);
     } else {
-      console.log('else');
       this.showDialog = true;
       this.$weatherLoaded.value = true;
-      console.log(this.$weatherLoaded.value);
     }
   }
 };

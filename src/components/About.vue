@@ -45,6 +45,9 @@
         <a target="_blank" href="https://instagram.com/this.is.dimas"
           ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/instagram_128.png"></v-img
         ></a>
+        <a target="_blank" :title="$t('ABOUT_footerGithubTitle')" href="https://github.com/dimaskhln/calculator"
+          ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/github_128.png"></v-img
+        ></a>
         <br />
         <v-icon class=" d-inline-flex">mdi-at</v-icon
         ><a
@@ -110,16 +113,11 @@ export default {
     }
   },
   beforeCreate() {
-    console.log(this.$pageLoaded);
     if (this.$pageLoaded.value) {
-      console.log('if');
       this.showDialog = false;
-      console.log(this.$pageLoaded.value);
     } else {
-      console.log('else');
       this.showDialog = true;
       this.$pageLoaded.value = true;
-      console.log(this.$pageLoaded.value);
     }
   }
 };

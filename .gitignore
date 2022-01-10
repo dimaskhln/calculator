@@ -26,6 +26,7 @@ deploy.sh
 
 .env
 .env.production
+src/apiKeys.js
 
 *.prettierrc
 
