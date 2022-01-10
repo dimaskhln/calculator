@@ -53,7 +53,7 @@ export const messages = {
     ABOUT_hobbiesHead: 'Мои хобби',
     ABOUT_hobbiesBodyPCGames: 'Компьютерные игры',
     ABOUT_hobbiesBodyOther:
-      ', коллекционирование старых мобильных телефонов, приготовление еды и её употребление 🙂. Также я немного играю на гитаре, люблю езду на велосипеде и электросамокате. Стараюсь по возможности путешествовать, открывать для себя мир.',
+      ', коллекционирование старых мобильных телефонов, приготовление еды и её употребление 🙂. Также я немного играю на гитаре, люблю езду на велосипеде и электросамокате. Люблю играть в квиз-викторины! Стараюсь по возможности путешествовать, открывать для себя мир.',
     ABOUT_achievementsHead: 'Мои достижения',
     ABOUT_achievementsBody:
       'За неполные три года работы в качестве Frontend-разработчика я сделал Web-приложение для управления охранными системами, доступное как на десктопе, так и на мобильных устройствах. При разработке использовались такие технологии как HTML, CSS, JS вместе с jQuery, бэкенд  был на C# (ASP.NET). Также одной из моих обязанностей была разработка и поддержка приложения-оболочки для этой системы управления на Android (Xamarin) с дополнительным функционалом.',
@@ -118,7 +118,7 @@ export const messages = {
     ABOUT_hobbiesHead: 'My hobbies',
     ABOUT_hobbiesBodyPCGames: 'Computer games',
     ABOUT_hobbiesBodyOther:
-      ', collecting old cellphones, cooking and then eating 🙂. Also I play guitar a little, riding bicycle and electro-scooter. Trying to travel and discover the world whenever it possible.',
+      ', collecting old cellphones, cooking and then eating 🙂. Also I play guitar a little, riding bicycle and electro-scooter. Love playing quiz-games! Trying to travel and discover the world whenever it possible.',
     ABOUT_achievementsHead: 'My achievements',
     ABOUT_achievementsBody:
       'During my incomplete three years of work as a Frontend developer I made a web-application for managing security systems, available both on desktop and mobile devices. During development we used such technologies as HTML, CSS, JS with jQuery, backend was on C# (ASP.NET). Also one of my responsibilities was to develop and maintain a wrapper application for the control system mentioned above on Android (Xamarin) with additional functionality.',

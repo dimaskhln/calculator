@@ -4,9 +4,16 @@
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
           <v-card-title>{{ $t('ABOUT_mainInfoHead') }} {{ greetings }}!</v-card-title>
-          <v-card-text>
-            {{ $t('ABOUT_mainInfoBody') }}
-          </v-card-text>
+          <v-row>
+            <v-col cols="12" sm="12" md="3" class=" px-3">
+              <v-img class="ml-3 mr-3" width="90%" max-width="500px" src="/images/social/avatar.jpg" alt="Дмитрий Халин"></v-img
+            ></v-col>
+            <v-col cols="12" sm="12" md="9">
+              <v-card-text>
+                {{ $t('ABOUT_mainInfoBody') }}
+              </v-card-text></v-col
+            >
+          </v-row>
         </v-card></v-col
       ><v-col cols="12" sm="12" md="6">
         <v-card class="mt-3 mx-3">
@@ -37,16 +44,16 @@
       <v-col class="text-center"
         >{{ $t('ABOUT_footerContact') }} <br />
         <a target="_blank" href="https://vk.com/thisisdimas"
-          ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/vk_128.png"></v-img
+          ><v-img alt="vk_logo" class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/vk_128.png"></v-img
         ></a>
         <a target="_blank" href="https://t.me/dimaskhln"
-          ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/telegram_128.png"></v-img
+          ><v-img alt="telegram_logo" class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/telegram_128.png"></v-img
         ></a>
         <a target="_blank" href="https://instagram.com/this.is.dimas"
-          ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/instagram_128.png"></v-img
+          ><v-img alt="inst_logo" class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/instagram_128.png"></v-img
         ></a>
         <a target="_blank" :title="$t('ABOUT_footerGithubTitle')" href="https://github.com/dimaskhln/calculator"
-          ><v-img class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/github_128.png"></v-img
+          ><v-img alt="github_logo" class="mx-3 d-inline-flex" height="32" width="32" src="/images/social/github_128.png"></v-img
         ></a>
         <br />
         <v-icon class=" d-inline-flex">mdi-at</v-icon
