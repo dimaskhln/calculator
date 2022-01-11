@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card v-for="task in tasks" :color="colorClass(task)" :key="task.name" class="my-3">
-      <v-card-title>
+      <v-card-title style="word-break: break-word;">
         <v-icon v-if="task.isDone" class="mr-2" color="green darken-4">mdi-calendar-check-outline</v-icon>
         <v-icon v-if="!task.isDone && task.priority == 3" class="mr-2">mdi-calendar-blank-outline</v-icon>
         <v-icon v-if="!task.isDone && task.priority == 2" color="" class="mr-2">mdi-calendar-alert</v-icon>
@@ -16,6 +16,7 @@
             .join('.')
         }}</v-card-text
       >
+      <v-card-text v-if="task.id > 4" class="grey--text text--lighten-2 py-1">Добавлено не мной</v-card-text>
       <v-btn class="ma-3" color="yellow  accent-1" v-if="!task.isDone" v-on:click="markDone(task)"
         ><v-icon color="yellow darken-2">mdi-checkbox-blank-circle-outline</v-icon></v-btn
       >

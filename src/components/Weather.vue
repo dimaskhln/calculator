@@ -24,7 +24,7 @@
               {{ $t('WEATHER_wind') }} <v-icon>mdi-{{ city.windDirectionIcon }}</v-icon> {{ city.windDirection }} {{ city.windSpeed }} м/с
             </v-row>
           </v-card-text>
-
+          <v-card-text v-if="!protectedCities.includes(city.name)" class="grey--text text--lighten-2 py-1">Добавлен не мной</v-card-text>
           <v-btn class="ml-3 mb-3" v-if="!protectedCities.includes(city.name)" color="red lighten-4" elevation="2" x-small v-on:click="deleteCity(city.docId)">
             {{ $t('WEATHER_deleteButton') }}</v-btn
           >
